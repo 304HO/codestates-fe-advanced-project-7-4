@@ -11,7 +11,7 @@ function Maintest() {
   useEffect(() => {
     const setNewsData = async () => {
       const res = await axios.get(
-        "https://newsapi.org/v2/everything?apiKey=4a002360bb714126a0ee4b0ea983c300&q=health"
+        "https://newsapi.org/v2/everything?apiKey=be5289e0e3024c49b501e435cc6f61b0&q=health"
       );
       setNews(res.data.articles);
       console.log("news", news);
