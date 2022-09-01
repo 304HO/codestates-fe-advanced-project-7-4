@@ -18,7 +18,7 @@ type GetCategoryNewsTypes = {
 const newsApi = {
   getAllNews: () =>
     axiosApi
-      .get(`/everything?apiKey=4a002360bb714126a0ee4b0ea983c300`)
+      .get(`/everything?apiKey=4a002360bb714126a0ee4b0ea983c300&q=health`)
       .then((res: any) => res.data),
   getOptionsNews: ({ searchKeyword, Sortedtype }: GetOptionsNewsTypes) => {
     let url = "/everything?";
