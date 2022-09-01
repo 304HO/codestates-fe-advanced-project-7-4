@@ -3,6 +3,7 @@ import BookmarkPage from "./pages/BookmarkPage";
 import CategoryPage from "./pages/CategoryPage";
 import EditPage from "./pages/EditPage";
 import Test from "./pages/Test";
+import Maintest from "./pages/Maintest";
 
 export type RouteType = {
   name: string;
@@ -41,6 +42,12 @@ const routes: Array<RouteType> = [
     key: "Test",
     route: "/Test",
     component: <Test />,
+  },
+  {
+    name: "Maintest",
+    key: "Maintest",
+    route: "/",
+    component: <Maintest />,
   },
 ];
 
