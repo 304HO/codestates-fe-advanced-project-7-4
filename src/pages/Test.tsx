@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Modal from "../components/Modal/Modal";
 import { getNews } from "../features/newsActions";
-import newsSlice, { clearNewsList } from "../features/newsSlice";
+import newsSlice, { clearNewsList, NewsType } from "../features/newsSlice";
 import { userLogin } from "../features/userActions";
-import { logout } from "../features/userSlice";
+import { addBookmark, logout } from "../features/userSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import useModal from "../hooks/useModal";
 
@@ -38,6 +38,11 @@ function Test() {
     setPage((prev) => prev + 1);
   };
 
+  const onClickAddBookmarkHandler = async () => {
+    dispatch(addBookmark(newsState.newsList[0]));
+    setPage((prev) => prev + 1);
+  };
+
   useEffect(() => {
     dispatch(clearNewsList());
     return () => {};
@@ -52,6 +57,7 @@ function Test() {
         onChange={(e) => setSearchKeyword(e.target.value)}
       ></Input>
       <ButtonLogin onClick={onClickAddNewsHandler}>뉴스 추가</ButtonLogin>
+      <ButtonLogin onClick={onClickAddBookmarkHandler}>북마크</ButtonLogin>
       <Modal open={isOpen} onClose={toggle}>
         <>
           <Input
@@ -68,7 +74,7 @@ function Test() {
           <ButtonLogin onClick={onClickLoginHandler}>로그아웃 버튼</ButtonLogin>
         </>
       </Modal>
-      {newsState.newsList.map((v) => {
+      {userState.bookmarkList.map((v) => {
         return <div>{v.author}</div>;
       })}
     </Container>
