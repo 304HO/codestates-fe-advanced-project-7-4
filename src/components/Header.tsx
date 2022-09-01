@@ -30,12 +30,6 @@ function Header({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // React.useEffect(() => {
-  //   if (userState.accessToken !== null) {
-  //     dispatch(getUserProfile());
-  //   }
-  // }, [userState.accessToken, dispatch]);
-
   const onClickLogoutHandler = () => {
     dispatch(logout());
     navigate("/");
@@ -76,8 +70,8 @@ const StyledHeader = styled.header`
   position: sticky;
   z-index: 10;
 
-  height: 64px;
   width: calc(100% - 40px);
+  height: 64px;
   top: 0;
   display: flex;
   justify-content: space-between;
@@ -85,18 +79,22 @@ const StyledHeader = styled.header`
 
   align-items: center;
   transition-duration: 0.8s;
-  box-shadow: 0 1px 5px gray;
+  box-shadow: 0 1px 2px #cdcacf;
   background: white;
 `;
 
 const StyledLogo = styled.img`
   height: 25px;
   user-select: none;
+  margin: 0px 20px 0px 0px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const StyledDiv = styled.div`
   display: flex;
-  gap: 10px;
   align-items: center;
 `;
 
@@ -104,6 +102,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   padding: 5px;
   width: 25px;
   height: 25px;
+  margin-right: 10px;
   &:hover {
     cursor: grab;
   }
