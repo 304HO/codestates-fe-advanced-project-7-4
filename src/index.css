@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    "Spoqa Han Sans Neo", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+* {
+  --Secondary--Grayscale--G9: rgba(38, 38, 38, 1);
+  --color--sidebar--background: #fafafa;
+  --color--primary--gray--gr1: #fafafa;
+  --color--primary--blue--bl1: #e6f7ff;
+  --color--primary--blue--bl10: #002766;
+  --color--primary--blue--bl6: #1890ff;
+
+  --color--primary--red--default: #ff5355;
+  --color--primary--black--default: #181818;
+  --color--primary--white--default: #ffffff;
+
+  --color--primary--gray--default: #f6f6fc;
+  --color--primary--gray--tag: #f6f4f6;
+  --color--primary--gray--line: #e7e2e8;
+  --color--primary--gray--icon: #cdcacf;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  background-color: var(--color--primary--gray--default);
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
