@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, userLogin } from "./userActions";
+// import { getUserProfile, userLogin } from "./userActions";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
 
 // initialize userToken from local storage
-const accessToken = localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null;
-const refreshToken = localStorage.getItem("refreshToken") ? localStorage.getItem("refreshToken") : null;
+const accessToken = localStorage.getItem("accessToken")
+  ? localStorage.getItem("accessToken")
+  : null;
+const refreshToken = localStorage.getItem("refreshToken")
+  ? localStorage.getItem("refreshToken")
+  : null;
 
 interface UserState {
   // loading: "idle" | "pending" | "succeeded" | "failed";
@@ -45,7 +49,7 @@ const initialState = {
   accessToken,
   refreshToken,
   error: null,
-  success: false
+  success: false,
 } as UserState;
 
 const userSlice = createSlice({
@@ -60,41 +64,43 @@ const userSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
       state.error = null;
-    }
+    },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(userLogin.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(userLogin.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        // state.userInfo = payload;
-        state.accessToken = payload.accessToken;
-        state.refreshToken = payload.refreshToken;
-      })
-      .addCase(userLogin.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload as string;
-      });
-    builder
-      .addCase(getUserProfile.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getUserProfile.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.userInfo = payload as userInfoType;
-      })
-      .addCase(getUserProfile.rejected, (state) => {
-        state.loading = false;
-      });
-  }
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(userLogin.pending, (state) => {
+  //       state.loading = true;
+  //       state.error = null;
+  //     })
+  //     .addCase(userLogin.fulfilled, (state, { payload }) => {
+  //       state.loading = false;
+  //       // state.userInfo = payload;
+  //       state.accessToken = payload.accessToken;
+  //       state.refreshToken = payload.refreshToken;
+  //     })
+  //     .addCase(userLogin.rejected, (state, { payload }) => {
+  //       state.loading = false;
+  //       state.error = payload as string;
+  //     });
+  //   builder
+  //     .addCase(getUserProfile.pending, (state) => {
+  //       state.loading = true;
+  //     })
+  //     .addCase(getUserProfile.fulfilled, (state, { payload }) => {
+  //       state.loading = false;
+  //       state.userInfo = payload as userInfoType;
+  //     })
+  //     .addCase(getUserProfile.rejected, (state) => {
+  //       state.loading = false;
+  //     });
+  // },
 });
 
 export const { logout } = userSlice.actions;
 
-export const selectAccessToken = (state: { user: UserState }) => state.user.accessToken;
-export const selectRefreshToken = (state: { user: UserState }) => state.user.refreshToken;
+export const selectAccessToken = (state: { user: UserState }) =>
+  state.user.accessToken;
+export const selectRefreshToken = (state: { user: UserState }) =>
+  state.user.refreshToken;
 
 export default userSlice.reducer;

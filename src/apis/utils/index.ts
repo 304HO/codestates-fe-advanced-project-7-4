@@ -11,7 +11,7 @@ export const injectStore = (_store: any) => {
 const axiosApi = axios.create({
   baseURL: "https://newsapi.org/v2",
   withCredentials: true,
-  adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter),
+  // adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter),
 });
 
 axiosApi.interceptors.request.use(
@@ -23,7 +23,7 @@ axiosApi.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosApi.interceptors.response.use(
@@ -34,7 +34,7 @@ axiosApi.interceptors.response.use(
     // window.location.href = "/404";
     console.log(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosApi;
