@@ -1,5 +1,4 @@
 import axios, { AxiosAdapter } from "axios";
-import { selectAccessToken } from "../../features/userSlice";
 import { cacheAdapterEnhancer } from "axios-extensions";
 
 let store: any;
@@ -10,15 +9,11 @@ export const injectStore = (_store: any) => {
 
 const axiosApi = axios.create({
   baseURL: "https://newsapi.org/v2",
-  withCredentials: true,
   adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter),
 });
 
 axiosApi.interceptors.request.use(
   function (config: any) {
-    const accessToken = selectAccessToken(store.getState());
-    if (accessToken !== null)
-      config.headers.authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {

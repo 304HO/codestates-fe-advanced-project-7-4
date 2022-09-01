@@ -1,66 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, userLogin } from "./userActions";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../app/store";
-
-// initialize userToken from local storage
-const accessToken = localStorage.getItem("accessToken") ? localStorage.getItem("accessToken") : null;
-const refreshToken = localStorage.getItem("refreshToken") ? localStorage.getItem("refreshToken") : null;
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { NewsType } from "./newsSlice";
+import { userLogin } from "./userActions";
 
 interface UserState {
-  // loading: "idle" | "pending" | "succeeded" | "failed";
   loading: boolean;
-  userInfo: null | userInfoType;
-  accessToken: string | null;
-  refreshToken: string | null;
+  isLogin: boolean;
+  bookmarkList: Array<NewsType>;
   error: null | string;
-  success: boolean;
 }
 
-type userInfoType = {
-  id: number;
-  nickname: string;
-  profileImage: string;
-  headline: string;
-  badge: string;
-  tags: {
-    foodStyle: Array<string>;
-    occupation: Array<string>;
-    household: Array<string>;
-  };
-  isNotifiable: boolean;
-  isMarketing: boolean;
-  productBookmarkCount: number;
-  reviewBookmarkCount: number;
-  followerCount: number;
-  followingCount: number;
-  reviewCount: number;
-  remainingPeriod: number;
-  created: string;
-};
-
-const initialState = {
+const initialState: UserState = {
   loading: false,
-  userInfo: null,
-  accessToken,
-  refreshToken,
+  isLogin: false,
+  bookmarkList: [],
   error: null,
-  success: false
-} as UserState;
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     logout: (state) => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
       state.loading = false;
-      state.userInfo = null;
-      state.accessToken = null;
-      state.refreshToken = null;
+      state.isLogin = false;
       state.error = null;
-    }
+    },
+
+    initialBookmark: (state) => {
+      state.bookmarkList = [];
+    },
+    deleteBookmarkIndex: (state, action: PayloadAction<number>) => {
+      state.bookmarkList.splice(action.payload, 1);
+    },
+    addBookmark: (state, action: PayloadAction<NewsType>) => {
+      state.bookmarkList.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,33 +42,23 @@ const userSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(userLogin.fulfilled, (state, { payload }) => {
+      .addCase(userLogin.fulfilled, (state) => {
         state.loading = false;
-        // state.userInfo = payload;
-        state.accessToken = payload.accessToken;
-        state.refreshToken = payload.refreshToken;
+        state.isLogin = true;
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
+        state.isLogin = false;
         state.error = payload as string;
       });
-    builder
-      .addCase(getUserProfile.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getUserProfile.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.userInfo = payload as userInfoType;
-      })
-      .addCase(getUserProfile.rejected, (state) => {
-        state.loading = false;
-      });
-  }
+  },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, initialBookmark, deleteBookmarkIndex, addBookmark } =
+  userSlice.actions;
 
-export const selectAccessToken = (state: { user: UserState }) => state.user.accessToken;
-export const selectRefreshToken = (state: { user: UserState }) => state.user.refreshToken;
+export const selectBookmarkList = (state: { user: UserState }) =>
+  state.user.bookmarkList;
+export const selectIsLogin = (state: { user: UserState }) => state.user.isLogin;
 
 export default userSlice.reducer;

@@ -2,6 +2,8 @@ import Error404 from "./pages/Error404Page";
 import BookmarkPage from "./pages/BookmarkPage";
 import CategoryPage from "./pages/CategoryPage";
 import EditPage from "./pages/EditPage";
+import Test from "./pages/Test";
+import Maintest from "./pages/Maintest";
 
 export type RouteType = {
   name: string;
@@ -34,6 +36,18 @@ const routes: Array<RouteType> = [
     key: "Error404",
     route: "/404",
     component: <Error404 />,
+  },
+  {
+    name: "Test",
+    key: "Test",
+    route: "/Test",
+    component: <Test />,
+  },
+  {
+    name: "Maintest",
+    key: "Maintest",
+    route: "/",
+    component: <Maintest />,
   },
 ];
 

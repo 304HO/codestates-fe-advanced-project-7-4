@@ -1,24 +1,19 @@
+import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import newsApi from "../apis/api/news";
 
-type SearchBarPropsType = {
-  currentText?: string | null;
-  setCurrentText: (currentText?: string) => void;
-  updateSearchText: (currentText?: string) => void;
-  addSearchHistory: (currentText?: string) => void;
-};
+function SearchBar() {
+  const [currentText, setCurrentText] = React.useState<string | null>(null);
+  const [searchText, setSearchText] = React.useState<string | null>(null);
 
-function SearchBar({ currentText, setCurrentText, updateSearchText, addSearchHistory }: SearchBarPropsType) {
-  const onChangeHandler = (inputValue: string) => {
-    setCurrentText(inputValue);
+  const onChangeHandler = (text: string) => {
+    setCurrentText(text);
   };
 
   const onClickHandler = () => {
-    if (currentText !== null) {
-      updateSearchText(currentText);
-      addSearchHistory(currentText);
-    }
+    setSearchText(currentText);
   };
 
   const onKeyPressPreventHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,9 +26,26 @@ function SearchBar({ currentText, setCurrentText, updateSearchText, addSearchHis
     }
   };
 
+  React.useEffect(() => {
+    const getNews = async () => {
+      if (searchText !== null) {
+        // const res = await newsApi.getOptionsNews({{searchText}});
+        //? res => store에 담는 기능 추가
+      }
+    };
+    getNews();
+  }, [searchText]);
+
   return (
     <SearchContainer onSubmit={onKeyPressPreventHandler}>
-      <InputField onKeyPress={onKeyPress} onChange={(e) => onChangeHandler(e.target.value)} type="text" name="search" required autoComplete="off" />
+      <InputField
+        onKeyPress={onKeyPress}
+        onChange={(e) => onChangeHandler(e.target.value)}
+        type="text"
+        name="search"
+        required
+        autoComplete="off"
+      />
       <ButtonWrap onClick={() => onClickHandler()}>
         <FontAwesomeIcon icon={faSearch} />
       </ButtonWrap>
@@ -44,7 +56,7 @@ function SearchBar({ currentText, setCurrentText, updateSearchText, addSearchHis
 const SearchContainer = styled.form`
   box-sizing: border-box;
   position: relative;
-  width: 344px;
+  width: 659px;
   height: 39px;
   /* display: flex;
 align-items: center; */
@@ -65,8 +77,8 @@ const InputField = styled.input`
 const ButtonWrap = styled.div`
   display: flex;
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 12px;
+  right: 20px;
 `;
 
 export default SearchBar;

@@ -3,10 +3,11 @@ import styled from "styled-components";
 import axios from "axios";
 import authApi from "../apis/api/auth";
 import Google from "../assets/images/btn_google_signin_light_normal_web@2x.png";
-import { userLogin } from "../features/userActions";
+// import { userLogin } from "../features/userActions";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { OAUTH_URL } from "../common/constants";
+import { userLogin } from "../features/userActions";
 
 const Input = styled.input`
   width: 300px;
@@ -39,12 +40,12 @@ function Login() {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [inputs, setInputs] = useState({
-    email: "",
+    id: "",
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { email, password } = inputs;
+  const { id, password } = inputs;
 
   const onChange = (e: any) => {
     const { name, value } = e.target;
@@ -56,7 +57,7 @@ function Login() {
   };
 
   const onClickhandler = () => {
-    dispatch(userLogin({ email, password }));
+    dispatch(userLogin({ id, password }));
   };
 
   const onClickGoogle = () => {
@@ -65,19 +66,14 @@ function Login() {
 
   return (
     <>
-      <Input
-        name="email"
-        placeholder="EMAIL"
-        onChange={onChange}
-        value={email}
-      />
+      <Input name="id" placeholder="id" onChange={onChange} value={id} />
       <Input
         name="password"
         placeholder="PASSWORD"
         onChange={onChange}
         value={password}
       />
-      <ButtonLogin onClick={onClickhandler}>로그인</ButtonLogin>
+      {/* <ButtonLogin onClick={onClickhandler}>로그인</ButtonLogin> */}
       {errorMessage === "" ? null : errorMessage}
     </>
   );
