@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 function CategoryPage() {
-  return <div>CategoryPage</div>;
+  // TODO: 창 크기 줄어들면 defalt -> false;
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  return (
+    <div>
+      <Header
+        useLogo={true}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+      {isSidebarOpen && <Sidebar />}
+    </div>
+  );
 }
 
 export default CategoryPage;
