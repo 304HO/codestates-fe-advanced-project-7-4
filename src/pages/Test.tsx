@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Modal from "../components/Modal/Modal";
-import { getNews } from "../features/newsActions";
+import { getCategoryNews, getNews } from "../features/newsActions";
 import newsSlice, { clearNewsList, NewsType } from "../features/newsSlice";
 import { userLogin } from "../features/userActions";
-import { addBookmark, logout } from "../features/userSlice";
+import {
+  addBookmark,
+  deleteBookmarkIndex,
+  editBookmark,
+  logout,
+} from "../features/userSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import useModal from "../hooks/useModal";
 
@@ -34,13 +39,33 @@ function Test() {
     toggle();
   };
   const onClickAddNewsHandler = async () => {
-    await dispatch(getNews({ searchKeyword, pageSize, page }));
+    await dispatch(getNews({ searchKeyword, sortedtype, pageSize, page }));
+    setPage((prev) => prev + 1);
+  };
+  const onClickAddCategoryNewsHandler = async () => {
+    await dispatch(
+      getCategoryNews({
+        category: "business",
+        pageSize,
+        page,
+      })
+    );
     setPage((prev) => prev + 1);
   };
 
-  const onClickAddBookmarkHandler = async () => {
-    dispatch(addBookmark(newsState.newsList[0]));
-    setPage((prev) => prev + 1);
+  const onClickAddBookmarkHandler = async (idx: number) => {
+    dispatch(addBookmark(newsState.newsList[idx]));
+  };
+
+  const onClickDeleteBookmarkHandler = async (idx: number) => {
+    dispatch(deleteBookmarkIndex(idx));
+  };
+
+  const onClickEditBookmarkHandler = (idx: number, news: NewsType) => {
+    // console.log(idx, news);
+    const newNews = { ...news };
+    newNews.author = "test";
+    dispatch(editBookmark({ idx, news: newNews }));
   };
 
   useEffect(() => {
@@ -57,7 +82,10 @@ function Test() {
         onChange={(e) => setSearchKeyword(e.target.value)}
       ></Input>
       <ButtonLogin onClick={onClickAddNewsHandler}>뉴스 추가</ButtonLogin>
-      <ButtonLogin onClick={onClickAddBookmarkHandler}>북마크</ButtonLogin>
+      <></>
+      <ButtonLogin onClick={onClickAddCategoryNewsHandler}>
+        카테고리 뉴스 추가
+      </ButtonLogin>
       <Modal open={isOpen} onClose={toggle}>
         <>
           <Input
@@ -74,9 +102,40 @@ function Test() {
           <ButtonLogin onClick={onClickLoginHandler}>로그아웃 버튼</ButtonLogin>
         </>
       </Modal>
-      {userState.bookmarkList.map((v) => {
-        return <div>{v.author}</div>;
+      {userState.bookmarkList.map((v, idx) => {
+        return (
+          <div>
+            {v?.author}
+            <ButtonLogin onClick={() => onClickDeleteBookmarkHandler(idx)}>
+              북마크 삭제
+            </ButtonLogin>
+            <ButtonLogin onClick={() => onClickEditBookmarkHandler(idx, v)}>
+              제목 수정
+            </ButtonLogin>
+          </div>
+        );
       })}
+      {newsState.categoryNewsList.map((v, idx) => {
+        return (
+          <div>
+            <span>인덱스{idx}</span>
+            <span>{v?.author}</span>
+          </div>
+        );
+      })}
+      <div>
+        {newsState.newsList.map((v, idx) => {
+          return (
+            <div>
+              <span>인덱스{idx}</span>
+              <span>{v?.author}</span>
+              <ButtonLogin onClick={() => onClickAddBookmarkHandler(idx)}>
+                북마크 추가
+              </ButtonLogin>
+            </div>
+          );
+        })}
+      </div>
     </Container>
   );
 }

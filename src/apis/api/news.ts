@@ -1,5 +1,7 @@
 import axiosApi from "../utils";
 
+const apiKey = "0357c28dbe71476b84c1cd5bbcbdabe3";
+
 export type GetOptionsNewsTypes = {
   pageSize: number;
   page: number;
@@ -7,7 +9,10 @@ export type GetOptionsNewsTypes = {
   sortedtype?: "relevancy" | "popularity" | "publishedAt";
 };
 export type GetCategoryNewsTypes = {
-  type:
+  searchKeyword?: string;
+  pageSize: number;
+  page: number;
+  category:
     | "business"
     | "entertainment"
     | "general"
@@ -19,9 +24,7 @@ export type GetCategoryNewsTypes = {
 
 const newsApi = {
   getAllNews: () =>
-    axiosApi
-      .get(`/everything?apiKey=4a002360bb714126a0ee4b0ea983c300&q=health`)
-      .then((res: any) => res.data),
+    axiosApi.get(`/everything?apiKey=${apiKey}`).then((res: any) => res.data),
   getOptionsNews: async ({
     searchKeyword,
     sortedtype,
@@ -34,18 +37,28 @@ const newsApi = {
     if (sortedtype !== undefined) {
       list.push(`sortBy=${sortedtype}`);
     }
-    list.push("apiKey=4a002360bb714126a0ee4b0ea983c300");
+    list.push(`apiKey=${apiKey}`);
     list.push(`pageSize=${pageSize}`);
     list.push(`page=${page}`);
     url += list.join("&");
     return await axiosApi.get(url);
   },
-  getCategoryNews: ({ type }: GetCategoryNewsTypes) =>
-    axiosApi
-      .get(
-        `/top-headlines?category=${type}&apiKey=4a002360bb714126a0ee4b0ea983c300`
-      )
-      .then((res: any) => res.data),
+  getCategoryNews: ({
+    category,
+    searchKeyword,
+    pageSize,
+    page,
+  }: GetCategoryNewsTypes) => {
+    let url = "/top-headlines?";
+    const list = [];
+    searchKeyword !== undefined && list.push(`q=${searchKeyword}`);
+    list.push(`category=${category}`);
+    list.push(`pageSize=${pageSize}`);
+    list.push(`page=${page}`);
+    list.push(`apiKey=${apiKey}`);
+    url += list.join("&");
+    return axiosApi.get(url);
+  },
 };
 
 export default newsApi;

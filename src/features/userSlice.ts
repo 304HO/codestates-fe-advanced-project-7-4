@@ -33,7 +33,16 @@ const userSlice = createSlice({
       state.bookmarkList.splice(action.payload, 1);
     },
     addBookmark: (state, action: PayloadAction<NewsType>) => {
-      state.bookmarkList.push(action.payload);
+      if (action.payload !== null && action.payload !== undefined) {
+        state.bookmarkList.push(action.payload);
+      }
+    },
+    editBookmark: (
+      state,
+      action: PayloadAction<{ idx: number; news: NewsType }>
+    ) => {
+      console.log(action.payload.idx, action.payload.news);
+      state.bookmarkList[action.payload.idx] = action.payload.news;
     },
   },
   extraReducers: (builder) => {
@@ -54,8 +63,13 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, initialBookmark, deleteBookmarkIndex, addBookmark } =
-  userSlice.actions;
+export const {
+  logout,
+  initialBookmark,
+  deleteBookmarkIndex,
+  addBookmark,
+  editBookmark,
+} = userSlice.actions;
 
 export const selectBookmarkList = (state: { user: UserState }) =>
   state.user.bookmarkList;
