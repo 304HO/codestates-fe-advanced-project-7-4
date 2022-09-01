@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import routes, { RouteType } from "./routes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 import LightTheme from "./assets/theme/light";
 import DarkTheme from "./assets/theme/dark";
@@ -11,6 +11,8 @@ import Error404 from "./pages/Error404Page";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
@@ -38,15 +40,32 @@ function App() {
         }}
       >
         <BrowserRouter>
-          <Routes>
-            {getRoutes(routes)}
-            <Route path="*" element={<Error404 />} />
-          </Routes>
+          <Container>
+            <ContentContainer>
+              <Routes>
+                {getRoutes(routes)}
+                <Route path="*" element={<Error404 />} />
+              </Routes>
+            </ContentContainer>
+          </Container>
         </BrowserRouter>
       </ThemeProvider>
       <ToastContainer />
     </>
   );
 }
+
+const Container = styled.div`
+  background-color: pink;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  // calc(100% - header height)
+  height: calc(100% - 64px);
+`;
 
 export default App;

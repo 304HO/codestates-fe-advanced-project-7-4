@@ -3,10 +3,11 @@ import styled from "styled-components";
 import axios from "axios";
 import authApi from "../apis/api/auth";
 import Google from "../assets/images/btn_google_signin_light_normal_web@2x.png";
-import { userLogin } from "../features/userActions";
+// import { userLogin } from "../features/userActions";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { OAUTH_URL } from "../common/constants";
+import { userLogin } from "../features/userActions";
 
 const Input = styled.input`
   width: 300px;
@@ -72,7 +73,7 @@ function Login() {
         onChange={onChange}
         value={password}
       />
-      <ButtonLogin onClick={onClickhandler}>로그인</ButtonLogin>
+      {/* <ButtonLogin onClick={onClickhandler}>로그인</ButtonLogin> */}
       {errorMessage === "" ? null : errorMessage}
     </>
   );

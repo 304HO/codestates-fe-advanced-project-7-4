@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NewsType } from "./newsSlice";
 import { userLogin } from "./userActions";
+
 interface UserState {
   loading: boolean;
   isLogin: boolean;
@@ -24,6 +25,7 @@ const userSlice = createSlice({
       state.isLogin = false;
       state.error = null;
     },
+
     initialBookmark: (state) => {
       state.bookmarkList = [];
     },
