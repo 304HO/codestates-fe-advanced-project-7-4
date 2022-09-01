@@ -4,6 +4,7 @@ import CategoryPage from "./pages/CategoryPage";
 import EditPage from "./pages/EditPage";
 import Test from "./pages/Test";
 import Maintest from "./pages/Maintest";
+import SearchPage from "./pages/SearchPage";
 
 export type RouteType = {
   name: string;
@@ -24,6 +25,12 @@ const routes: Array<RouteType> = [
     key: "CategoryPage",
     route: "/CategoryPage/:category",
     component: <CategoryPage />,
+  },
+  {
+    name: "SearchPage",
+    key: "SearchPage",
+    route: "/SearchPage",
+    component: <SearchPage />,
   },
   {
     name: "EditPage",

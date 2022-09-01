@@ -24,7 +24,7 @@ function Test() {
   const pageSize = 10;
   const [page, setPage] = useState<number>(1);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [sortedtype, setSortedtype] = useState<
+  const [sortBy, setSortBy] = useState<
     "relevancy" | "popularity" | "publishedAt"
   >("popularity");
 
@@ -39,7 +39,7 @@ function Test() {
     toggle();
   };
   const onClickAddNewsHandler = async () => {
-    await dispatch(getNews({ searchKeyword, sortedtype, pageSize, page }));
+    await dispatch(getNews({ searchKeyword, sortBy, pageSize, page }));
     setPage((prev) => prev + 1);
   };
   const onClickAddCategoryNewsHandler = async () => {

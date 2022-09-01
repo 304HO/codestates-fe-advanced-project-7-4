@@ -12,11 +12,13 @@ export type CategoryType = [
   "technology"
 ];
 
+// export type sortByType  = "relevancy" | "popularity" | "publishedAt" | null;
+
 export type GetOptionsNewsTypes = {
   pageSize: number;
   page: number;
   searchKeyword: string;
-  sortedtype?: "relevancy" | "popularity" | "publishedAt";
+  sortBy?: any;
 };
 export type GetCategoryNewsTypes = {
   searchKeyword?: string;
@@ -30,15 +32,15 @@ const newsApi = {
     axiosApi.get(`/everything?apiKey=${apiKey}`).then((res: any) => res.data),
   getOptionsNews: async ({
     searchKeyword,
-    sortedtype,
+    sortBy,
     pageSize,
     page,
   }: GetOptionsNewsTypes) => {
     let url = "/everything?";
     const list = [];
     list.push(`q=${searchKeyword}`);
-    if (sortedtype !== undefined) {
-      list.push(`sortBy=${sortedtype}`);
+    if (sortBy !== undefined && sortBy !== null) {
+      list.push(`sortBy=${sortBy}`);
     }
     list.push(`apiKey=${apiKey}`);
     list.push(`pageSize=${pageSize}`);

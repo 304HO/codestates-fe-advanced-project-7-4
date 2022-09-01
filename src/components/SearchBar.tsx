@@ -3,17 +3,18 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import newsApi from "../apis/api/news";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
+  const navigate = useNavigate();
   const [currentText, setCurrentText] = React.useState<string | null>(null);
-  const [searchText, setSearchText] = React.useState<string | null>(null);
 
   const onChangeHandler = (text: string) => {
     setCurrentText(text);
   };
 
   const onClickHandler = () => {
-    setSearchText(currentText);
+    navigate(`/SearchPage/?searchKeyword=${currentText}`);
   };
 
   const onKeyPressPreventHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,16 +26,6 @@ function SearchBar() {
       onClickHandler();
     }
   };
-
-  React.useEffect(() => {
-    const getNews = async () => {
-      if (searchText !== null) {
-        // const res = await newsApi.getOptionsNews({{searchText}});
-        //? res => store에 담는 기능 추가
-      }
-    };
-    getNews();
-  }, [searchText]);
 
   return (
     <SearchContainer onSubmit={onKeyPressPreventHandler}>

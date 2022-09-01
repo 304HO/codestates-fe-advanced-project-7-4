@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import NewsComponent from "../components/NewsComponent";
+import CategoryNewsComponent from "../components/CategoryNewsComponent";
 
 function CategoryPage() {
   // TODO: 창 크기 줄어들면 defalt -> false;
@@ -16,7 +16,7 @@ function CategoryPage() {
       />
       {isSidebarOpen && <Sidebar />}
       <StyledSpan>
-        <NewsComponent />
+        <CategoryNewsComponent />
       </StyledSpan>
     </div>
   );

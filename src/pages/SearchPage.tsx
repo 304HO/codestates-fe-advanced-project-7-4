@@ -6,24 +6,34 @@ import NewsComponent from "../components/NewsComponent";
 
 function SearchPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
-    <div>
+    <>
       <Header
         useLogo={true}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
       {isSidebarOpen && <Sidebar />}
-      <StyledSpan>
+      <StyledDiv isSidebarOpen={isSidebarOpen}>
         <NewsComponent />
-      </StyledSpan>
-    </div>
+      </StyledDiv>
+    </>
   );
 }
 
 export default SearchPage;
 
-const StyledSpan = styled.div`
-  margin-left: 280px;
+const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
+  display: flex;
+  justify-content: center;
+  margin-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
   margin-top: 64px;
+
+  @media (max-width: 930px) {
+    margin-left: 0px;
+  }
+
+  width: 100%;
+  height: calc(100vh - 64px);
 `;

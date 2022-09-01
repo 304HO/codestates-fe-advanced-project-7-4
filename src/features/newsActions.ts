@@ -8,13 +8,13 @@ import newsApi, {
 export const getNews = createAsyncThunk(
   "/everything?q=",
   async (
-    { searchKeyword, sortedtype, pageSize, page }: GetOptionsNewsTypes,
+    { searchKeyword, sortBy, pageSize, page }: GetOptionsNewsTypes,
     { rejectWithValue }
   ) => {
     try {
       const { data } = await newsApi.getOptionsNews({
         searchKeyword,
-        sortedtype,
+        sortBy,
         pageSize,
         page,
       });

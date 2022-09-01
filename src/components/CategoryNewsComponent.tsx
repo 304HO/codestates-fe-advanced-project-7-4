@@ -4,22 +4,15 @@ import styled, { keyframes } from "styled-components";
 import { useInView } from "react-intersection-observer";
 import ArrowBottom from "./../assets/images/double-arrow-bottom-icon.svg";
 import { clearCategoryNewsList, clearNewsList } from "../features/newsSlice";
-import { getCategoryNews, getNews } from "../features/newsActions";
+import { getCategoryNews } from "../features/newsActions";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CategoryType } from "../apis/api/news";
-import Loading from "./Loading";
 
-function NewsComponent() {
+function CategoryNewsComponent() {
   const dispatch = useAppDispatch();
   const newsState = useAppSelector((state) => state.news);
-  const [sortBy, setSortBy] = useState<any>(null);
-  let { search } = useLocation();
-  let query = search
-    .replace("?", "")
-    .split("&")
-    .map((v) => v.split("="));
-
+  const { category } = useParams();
   const [page, setPage] = useState<number>(1);
   const pageSize = 5;
 
@@ -29,63 +22,43 @@ function NewsComponent() {
 
   useEffect(() => {
     if (inView) {
-      onClickAddNewsHandler();
+      onClickAddCategoryNewsHandler();
     }
   }, [inView]);
 
-  const sortedtypeHandler = (sortBy: string) => {
-    setSortBy(sortBy);
-  };
+  const timeHandler = () => {};
 
   useEffect(() => {
-    dispatch(clearNewsList());
+    dispatch(clearCategoryNewsList());
     setPage(1);
-  }, [search, sortBy]);
+  }, [category]);
 
-  useEffect(() => {
-    onClickAddNewsHandler();
-  }, []);
-
-  const onClickAddNewsHandler = async () => {
-    for (let [key, value] of query) {
-      if (key === "searchKeyword") {
-        await dispatch(
-          getNews({
-            searchKeyword: value,
-            sortBy,
-            pageSize,
-            page,
-          })
-        );
-        setPage((prev) => prev + 1);
-        return;
-      }
+  const onClickAddCategoryNewsHandler = async () => {
+    const checkSet = new Set([
+      "Business",
+      "Entertainment",
+      "General",
+      "Health",
+      "Science",
+      "Sports",
+      "Technology",
+    ]);
+    if (category === undefined) return;
+    if (checkSet.has(category)) {
+      await dispatch(
+        getCategoryNews({
+          category,
+          pageSize,
+          page,
+        })
+      );
     }
+    setPage((prev) => prev + 1);
   };
-
-  if (newsState.newsList.length === 0) {
-    return (
-      <StyledLoadingContainer>
-        <Loading></Loading>
-      </StyledLoadingContainer>
-    );
-  }
 
   return (
     <Container>
-      <ButtonContainer>
-        <button onClick={() => sortedtypeHandler("relevancy")}>
-          relevancy
-        </button>
-        <button onClick={() => sortedtypeHandler("popularity")}>
-          popularity
-        </button>
-        <button onClick={() => sortedtypeHandler("publishedAt")}>
-          publishedAt
-        </button>
-      </ButtonContainer>
-
-      {newsState.newsList?.map((el: any, i: any) => {
+      {newsState.categoryNewsList?.map((el: any, i: any) => {
         return (
           <a href={el.url} target="_blank" key={i}>
             <News>
@@ -112,13 +85,7 @@ function NewsComponent() {
   );
 }
 
-export default NewsComponent;
-
-const StyledLoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export default CategoryNewsComponent;
 
 const Container = styled.div`
   display: flex;

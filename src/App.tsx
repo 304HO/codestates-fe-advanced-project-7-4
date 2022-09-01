@@ -13,7 +13,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import NewsComponent from "./components/NewsComponent";
 
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
@@ -29,7 +28,6 @@ function App() {
 
   return (
     <>
-      {/* <NewsComponent /> */}
       <ThemeProvider
         theme={{
           ...theme,
@@ -64,11 +62,8 @@ const Container = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-  flex-flow: row nowrap;
-  // calc(100% - header height)
-  /* margin-left: 280px;
-  margin-top: 64px; */
-  height: calc(100% - 64px);
+  width: 100%;
+  height: 100%;
 `;
 
 export default App;
