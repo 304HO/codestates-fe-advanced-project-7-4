@@ -39,12 +39,12 @@ function Login() {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [inputs, setInputs] = useState({
-    email: "",
+    id: "",
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { email, password } = inputs;
+  const { id, password } = inputs;
 
   const onChange = (e: any) => {
     const { name, value } = e.target;
@@ -56,7 +56,7 @@ function Login() {
   };
 
   const onClickhandler = () => {
-    dispatch(userLogin({ email, password }));
+    dispatch(userLogin({ id, password }));
   };
 
   const onClickGoogle = () => {
@@ -65,12 +65,7 @@ function Login() {
 
   return (
     <>
-      <Input
-        name="email"
-        placeholder="EMAIL"
-        onChange={onChange}
-        value={email}
-      />
+      <Input name="id" placeholder="id" onChange={onChange} value={id} />
       <Input
         name="password"
         placeholder="PASSWORD"

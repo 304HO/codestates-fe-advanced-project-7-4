@@ -1,10 +1,12 @@
 import axiosApi from "../utils";
 
-type GetOptionsNewsTypes = {
+export type GetOptionsNewsTypes = {
+  pageSize: number;
+  page: number;
   searchKeyword: string;
-  Sortedtype?: "relevancy" | "popularity" | "publishedAt";
+  sortedtype?: "relevancy" | "popularity" | "publishedAt";
 };
-type GetCategoryNewsTypes = {
+export type GetCategoryNewsTypes = {
   type:
     | "business"
     | "entertainment"
@@ -20,16 +22,23 @@ const newsApi = {
     axiosApi
       .get(`/everything?apiKey=4a002360bb714126a0ee4b0ea983c300`)
       .then((res: any) => res.data),
-  getOptionsNews: ({ searchKeyword, Sortedtype }: GetOptionsNewsTypes) => {
+  getOptionsNews: async ({
+    searchKeyword,
+    sortedtype,
+    pageSize,
+    page,
+  }: GetOptionsNewsTypes) => {
     let url = "/everything?";
     const list = [];
     list.push(`q=${searchKeyword}`);
-    if (Sortedtype !== undefined) {
-      list.push(`sortBy=${Sortedtype}`);
+    if (sortedtype !== undefined) {
+      list.push(`sortBy=${sortedtype}`);
     }
     list.push("apiKey=4a002360bb714126a0ee4b0ea983c300");
+    list.push(`pageSize=${pageSize}`);
+    list.push(`page=${page}`);
     url += list.join("&");
-    return axiosApi.get(url).then((res: any) => res.data);
+    return await axiosApi.get(url);
   },
   getCategoryNews: ({ type }: GetCategoryNewsTypes) =>
     axiosApi

@@ -3,9 +3,13 @@ import "../App.css";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faMagnifyingGlass, faRightFromBracket, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faMagnifyingGlass,
+  faRightFromBracket,
+  faAngleLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector, useAppDispatch } from "./../hooks/storeHooks";
-import { getUserProfile } from "../features/userActions";
 import logo from "./../assets/images/Logo.svg";
 import { logout } from "../features/userSlice";
 import SearchBar from "./SearchBar";
@@ -37,17 +41,11 @@ function Header({
   currentText,
   setCurrentText,
   updateSearchText,
-  addSearchHistory
+  addSearchHistory,
 }: HeaderPropsType) {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (userState.accessToken !== null) {
-      dispatch(getUserProfile());
-    }
-  }, [userState.accessToken, dispatch]);
 
   const onClickLogoutHandler = () => {
     dispatch(logout());
@@ -75,13 +73,36 @@ function Header({
 
   return (
     <StyledHeader>
-      {useLogo === true && <StyledLogo onClick={onClickLogoHandler} src={logo} alt={"knewnew"}></StyledLogo>}
-      {useBackSpace === true && <StyledFontAwesomeIcon onClick={onClickBackSpaceHandler} icon={faAngleLeft} />}
+      {useLogo === true && (
+        <StyledLogo
+          onClick={onClickLogoHandler}
+          src={logo}
+          alt={"knewnew"}
+        ></StyledLogo>
+      )}
+      {useBackSpace === true && (
+        <StyledFontAwesomeIcon
+          onClick={onClickBackSpaceHandler}
+          icon={faAngleLeft}
+        />
+      )}
       {children && <StyledH1>{children}</StyledH1>}
       <StyledDiv>
-        {useLogout === true && <StyledFontAwesomeIcon onClick={onClickLogoutHandler} icon={faRightFromBracket} />}
-        {useSearch === true && <StyledFontAwesomeIcon onClick={onClickSearchHandler} icon={faMagnifyingGlass} />}
-        {useMypage === true && <StyledFontAwesomeIcon onClick={onClickMypageHandler} icon={faBell} />}
+        {useLogout === true && (
+          <StyledFontAwesomeIcon
+            onClick={onClickLogoutHandler}
+            icon={faRightFromBracket}
+          />
+        )}
+        {useSearch === true && (
+          <StyledFontAwesomeIcon
+            onClick={onClickSearchHandler}
+            icon={faMagnifyingGlass}
+          />
+        )}
+        {useMypage === true && (
+          <StyledFontAwesomeIcon onClick={onClickMypageHandler} icon={faBell} />
+        )}
         {useSearchBar === true && (
           <SearchBar
             currentText={currentText}
