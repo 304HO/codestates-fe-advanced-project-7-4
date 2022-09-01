@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import NewsComponent from "./components/NewsComponent";
 
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <>
+      {/* <NewsComponent /> */}
       <ThemeProvider
         theme={{
           ...theme,
@@ -56,6 +58,7 @@ function App() {
 }
 
 const Container = styled.div`
+  background-color: pink;
   width: 100vw;
   height: 100vh;
 `;
