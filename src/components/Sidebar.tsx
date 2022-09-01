@@ -4,24 +4,30 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const MenuList = [
-  { label: "즐겨찾기", param: "/BookmarkPage" },
-  { label: "contour", param: "contour" },
-  { label: "Business", param: "/CategoryPage/Business" },
-  { label: "Entertainment", param: "/CategoryPage/Entertainment" },
-  { label: "General", param: "/CategoryPage/General" },
-  { label: "Health", param: "/CategoryPage/Health" },
-  { label: "Science", param: "/CategoryPage/Science" },
-  { label: "Sports", param: "/CategoryPage/Sports" },
-  { label: "Technology", param: "/CategoryPage/Technology" },
+  { label: "즐겨찾기", value: "BookmarkPage", param: "/BookmarkPage" },
+  { label: "contour", value: "contour", param: "contour" },
+  { label: "Business", value: "Business", param: "/CategoryPage/Business" },
+  {
+    label: "Entertainment",
+    value: "Entertainment",
+    param: "/CategoryPage/Entertainment",
+  },
+  { label: "General", value: "General", param: "/CategoryPage/General" },
+  { label: "Health", value: "Health", param: "/CategoryPage/Health" },
+  { label: "Science", value: "Science", param: "/CategoryPage/Science" },
+  { label: "Sports", value: "Sports", param: "/CategoryPage/Sports" },
+  {
+    label: "Technology",
+    value: "Technology",
+    param: "/CategoryPage/Technology",
+  },
 ];
 
 function Sidebar() {
   const { category } = useParams();
   const navigate = useNavigate();
-  const [currentTapIdx, setCurrentTapIdx] = React.useState<number>(2);
 
-  const onClickSidebarHandler = (param: string, idx: number) => {
-    setCurrentTapIdx(idx);
+  const onClickSidebarHandler = (param: string) => {
     navigate(param);
   };
 
@@ -33,14 +39,14 @@ function Sidebar() {
     <SidebarContainer>
       <MenuWrap>
         {MenuList.map((menu, idx) => {
-          if (menu.label === "contour") {
+          if (menu.value === "contour") {
             return <Hr key={idx} />;
           }
           return (
             <MenuText
               key={idx}
-              className={currentTapIdx === idx ? "selected" : "unSelected"}
-              onClick={() => onClickSidebarHandler(menu.param, idx)}
+              className={category === menu.value ? "selected" : "unSelected"}
+              onClick={() => onClickSidebarHandler(menu.param)}
             >
               {menu.label}
             </MenuText>

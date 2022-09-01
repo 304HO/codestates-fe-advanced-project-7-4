@@ -56,7 +56,6 @@ function App() {
 }
 
 const Container = styled.div`
-  background-color: pink;
   width: 100vw;
   height: 100vh;
 `;

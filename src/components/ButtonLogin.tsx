@@ -13,14 +13,16 @@ const ButtonContainer = styled.button`
   gap: 10px;
 
   width: 88px;
+  min-width: 88px;
   height: 40px;
   font-weight: 600;
   font-size: 16px;
+  margin-left: 10px;
 
   background: #00e87b;
-  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 2px 1px #cdcacf;
   border-radius: 50px;
-  border: 0px solid;
+  border: none;
   user-select: none;
 `;
 
