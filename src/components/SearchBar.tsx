@@ -58,8 +58,11 @@ const SearchContainer = styled.form`
   position: relative;
   width: 659px;
   height: 39px;
-  /* display: flex;
-align-items: center; */
+  margin-right: 80px;
+
+  @media screen and (max-width: 1200px) {
+    margin-right: 10px;
+  }
 `;
 
 const InputField = styled.input`
@@ -67,9 +70,8 @@ const InputField = styled.input`
   width: 100%;
   height: 100%;
   background: #ffffff;
-  /* grey/line */
-  border: 1px solid #e7e2e8;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 2px solid #e7e2e8;
+  box-shadow: 0px 3px 3px #e7e2e8;
   border-radius: 50px;
   padding: 0px 40px 0px 20px;
 `;
