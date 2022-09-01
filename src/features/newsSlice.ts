@@ -80,7 +80,7 @@ const newsSlice = createSlice({
   },
 });
 
-export const { clearNewsList } = newsSlice.actions;
+export const { clearNewsList, clearCategoryNewsList } = newsSlice.actions;
 
 export const selectNewsList = (state: { news: NewsState }) =>
   state.news.newsList;

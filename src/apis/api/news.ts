@@ -2,6 +2,16 @@ import axiosApi from "../utils";
 
 const apiKey = "0357c28dbe71476b84c1cd5bbcbdabe3";
 
+export type CategoryType = [
+  "business",
+  "entertainment",
+  "general",
+  "health",
+  "science",
+  "sports",
+  "technology"
+];
+
 export type GetOptionsNewsTypes = {
   pageSize: number;
   page: number;
@@ -12,14 +22,7 @@ export type GetCategoryNewsTypes = {
   searchKeyword?: string;
   pageSize: number;
   page: number;
-  category:
-    | "business"
-    | "entertainment"
-    | "general"
-    | "health"
-    | "science"
-    | "sports"
-    | "technology";
+  category: any;
 };
 
 const newsApi = {

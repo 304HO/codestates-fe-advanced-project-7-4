@@ -3,12 +3,18 @@ import React, { useState, useRef, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { useInView } from "react-intersection-observer";
 import ArrowBottom from "./../assets/images/double-arrow-bottom-icon.svg";
+import { clearCategoryNewsList, clearNewsList } from "../features/newsSlice";
+import { getCategoryNews } from "../features/newsActions";
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import { useParams } from "react-router-dom";
+import { CategoryType } from "../apis/api/news";
 
 function NewsComponent() {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [news, setNews] = useState<Array<any>>([]);
-  const [pageSize, setPageSize] = useState<number>(20);
+  const dispatch = useAppDispatch();
+  const newsState = useAppSelector((state) => state.news);
+  const { category } = useParams();
   const [page, setPage] = useState<number>(1);
+  const pageSize = 5;
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -16,37 +22,48 @@ function NewsComponent() {
 
   useEffect(() => {
     if (inView) {
-      fetchNews();
+      onClickAddCategoryNewsHandler();
     }
   }, [inView]);
 
-  const fetchNews = async () => {
-    setIsLoaded(true);
-    await axios
-      .get(
-        `https://newsapi.org/v2/everything?apiKey=9414eabebe814e2b871205bce51d7c64&q=health&pageSize=${pageSize}&page=${page}`
-      )
-      .then((res: any) => {
-        setNews((prev: any) => [...prev, ...res.data.articles]);
-        setPage(page + 1);
-        console.log(res.data.articles);
-      });
-    setIsLoaded(false);
+  const timeHandler = () => {};
+
+  useEffect(() => {
+    dispatch(clearCategoryNewsList());
+    setPage(1);
+  }, [category]);
+
+  const onClickAddCategoryNewsHandler = async () => {
+    const checkSet = new Set([
+      "Business",
+      "Entertainment",
+      "General",
+      "Health",
+      "Science",
+      "Sports",
+      "Technology",
+    ]);
+    if (category === undefined) return;
+    if (checkSet.has(category)) {
+      await dispatch(
+        getCategoryNews({
+          category,
+          pageSize,
+          page,
+        })
+      );
+    }
+    setPage((prev) => prev + 1);
   };
 
-  const timeHandler = () => {
-
-  }
-
   return (
-
     <Container>
       <ButtonContainer>
         <button onClick={timeHandler}>정렬</button>
         <button onClick={timeHandler}>정렬</button>
       </ButtonContainer>
 
-      {news?.map((el: any, i: any) => {
+      {newsState.categoryNewsList?.map((el: any, i: any) => {
         return (
           <a href={el.url} target="_blank" key={i}>
             <News>
@@ -76,43 +93,42 @@ function NewsComponent() {
 export default NewsComponent;
 
 const Container = styled.div`
-display:flex;
-flex-direction:column;
-
+  display: flex;
+  flex-direction: column;
 
   a {
     text-decoration: none;
-    color:black;
+    color: black;
   }
 `;
 
 const ButtonContainer = styled.div`
-display:flex;
-justify-content:end;
-margin:30px;
-gap: 5px;
+  display: flex;
+  justify-content: end;
+  margin: 30px;
+  gap: 5px;
   button {
     width: 80px;
     height: 50px;
-    background-color:#00E87B;
+    background-color: #00e87b;
     border-radius: 20px;
   }
-`
+`;
 const News = styled.div`
   display: flex;
   text-decoration: none;
-  align-items:center;
+  align-items: center;
   margin: 30px;
-  gap:20px;
+  gap: 20px;
   border: 1px solid;
   border-radius: 20px;
   box-shadow: 5px 5px 5px 5px gray;
 `;
 const ImgWrapper = styled.div`
-width: 200px;
-height: 200px;
-border-radius: 20px;
-`
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+`;
 const Img = styled.img`
   width: 200px;
   height: 200px;
@@ -124,8 +140,8 @@ const ContentWrapper = styled.div`
   gap: 30px;
 `;
 const Title = styled.div`
-font-size:2em;
-`
+  font-size: 2em;
+`;
 
 const DescWrapper = styled.div`
   display: flex;

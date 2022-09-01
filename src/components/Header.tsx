@@ -47,7 +47,7 @@ function Header({
           <StyledLogo
             onClick={onClickLogoHandler}
             src={logo}
-            alt={"knewnew"}
+            alt={"alyce"}
           ></StyledLogo>
         )}
       </StyledDiv>
@@ -58,12 +58,12 @@ function Header({
 }
 
 const StyledHeader = styled.header`
-  position: sticky;
+  position: fixed;
   z-index: 10;
 
   width: calc(100% - 40px);
   height: 64px;
-  top: 0;
+  top: 0px;
   display: flex;
   justify-content: space-between;
   padding: 0px 20px;

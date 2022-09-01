@@ -58,7 +58,6 @@ function App() {
 }
 
 const Container = styled.div`
-  background-color: pink;
   width: 100vw;
   height: 100vh;
 `;
@@ -67,6 +66,8 @@ const ContentContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   // calc(100% - header height)
+  /* margin-left: 280px;
+  margin-top: 64px; */
   height: calc(100% - 64px);
 `;
 
