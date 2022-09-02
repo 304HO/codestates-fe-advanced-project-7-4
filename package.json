@@ -65,5 +65,6 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
     "typescript-styled-plugin": "^0.18.2"
-  }
+  },
+  "proxy": "https://newsapi.org/v2"
 }

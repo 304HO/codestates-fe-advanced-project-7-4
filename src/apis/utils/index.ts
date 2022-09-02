@@ -10,6 +10,7 @@ export const injectStore = (_store: any) => {
 
 const axiosApi = axios.create({
   baseURL: "https://newsapi.org/v2",
+  // withCredentials: true,
   adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter),
 });
 
