@@ -10,6 +10,7 @@ import { deleteBookmarkIndex } from "../features/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Background from "../components/Background";
+import { toast } from "react-toastify";
 
 function BookmarkPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -26,6 +27,13 @@ function BookmarkPage() {
   const clickHandler = (index: any) => {
     navigate(`/EditPage/${index}`);
   };
+
+  useEffect(() => {
+    if (userState.isLogin === false) {
+      navigate("/");
+      toast("로그인을 해주세요.");
+    }
+  }, []);
 
   return (
     <>

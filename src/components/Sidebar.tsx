@@ -33,10 +33,6 @@ function Sidebar() {
     navigate(param);
   };
 
-  React.useEffect(() => {
-    console.log("param changed", category);
-  }, [category]);
-
   return (
     <SidebarContainer>
       <MenuWrap>

@@ -39,13 +39,15 @@ function NewsComponent() {
   };
 
   useEffect(() => {
+    console.log("up");
     dispatch(clearNewsList());
     setPage(1);
   }, [search, sortBy]);
 
   useEffect(() => {
+    console.log("down");
     onClickAddNewsHandler();
-  }, []);
+  }, [search]);
 
   const onClickAddNewsHandler = async () => {
     for (let [key, value] of query) {
@@ -56,7 +58,7 @@ function NewsComponent() {
             sortBy,
             pageSize,
             page,
-          }),
+          })
         );
         setPage((prev) => prev + 1);
         return;

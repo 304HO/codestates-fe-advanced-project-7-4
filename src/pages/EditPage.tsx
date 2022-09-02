@@ -23,6 +23,10 @@ function EditPage() {
 
   useEffect(() => {
     console.log(idx);
+    if (userState.isLogin === false) {
+      navigate("/");
+      toast("로그인을 해주세요.");
+    }
     if (idx !== undefined) {
       setNewsData({ ...userState.bookmarkList[parseInt(idx) as number] });
     }
