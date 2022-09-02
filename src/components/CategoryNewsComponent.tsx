@@ -51,7 +51,7 @@ function CategoryNewsComponent() {
           category,
           pageSize,
           page,
-        })
+        }),
       );
     }
     setPage((prev) => prev + 1);
@@ -73,6 +73,7 @@ export default CategoryNewsComponent;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 300px);
 
   a {
     text-decoration: none;

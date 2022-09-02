@@ -9,33 +9,6 @@ import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { OAUTH_URL } from "../common/constants";
 import { userLogin } from "../features/userActions";
 
-const Input = styled.input`
-  width: 300px;
-  height: 50px;
-`;
-const ButtonLogin = styled.button`
-  width: 300px;
-  height: 50px;
-  background-color: rgb(255, 83, 85);
-  color: white;
-`;
-
-const ButtonGoogleLogin = styled.button`
-  width: 300px;
-  height: 50px;
-  background-color: white;
-  font-weight: bold;
-  color: rgb(117, 117, 117);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-`;
-const Img = styled.img`
-  width: 310px;
-  height: 70px;
-`;
-
 function Login() {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -78,5 +51,32 @@ function Login() {
     </>
   );
 }
+
+const Input = styled.input`
+  width: 300px;
+  height: 50px;
+`;
+const ButtonLogin = styled.button`
+  width: 300px;
+  height: 50px;
+  background-color: rgb(255, 83, 85);
+  color: white;
+`;
+
+const ButtonGoogleLogin = styled.button`
+  width: 300px;
+  height: 50px;
+  background-color: white;
+  font-weight: bold;
+  color: rgb(117, 117, 117);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
+const Img = styled.img`
+  width: 310px;
+  height: 70px;
+`;
 
 export default Login;
