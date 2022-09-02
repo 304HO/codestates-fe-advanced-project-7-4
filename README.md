@@ -16,6 +16,14 @@
 <details>
     <summary>Figma Image</summary>
 
+    ![로그인 페이지](https://user-images.githubusercontent.com/91649767/188101040-58151631-54b3-4451-8f2b-4b840cc1128f.png)
+
+    ![Main page](https://user-images.githubusercontent.com/91649767/188101080-e58f60b5-1a26-4adb-a832-6e5ef9b6b8f5.png)
+    
+    ![news page](https://user-images.githubusercontent.com/91649767/188101184-1b18a308-ad3a-441c-9400-ad67d8d8a720.png)
+
+    ![수정 page](https://user-images.githubusercontent.com/91649767/188101140-4e94ae20-de9d-4d93-9029-ee4aa8014b2e.png)
+
 </details>
 <br/>
 
