@@ -63,8 +63,7 @@ npm start
 
 - [x] React Hook, styled-components, Redux 사용
 
-      <br/>
-      <br/>
+<br/>
 
 ## 아쉬운 점
 
