@@ -56,7 +56,7 @@ function NewsComponent() {
             sortBy,
             pageSize,
             page,
-          })
+          }),
         );
         setPage((prev) => prev + 1);
         return;
@@ -105,6 +105,7 @@ const StyledLoadingContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 300px);
 
   a {
     text-decoration: none;

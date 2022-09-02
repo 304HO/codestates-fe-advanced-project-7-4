@@ -5,6 +5,7 @@ import { logout } from "../features/userSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import useModal from "../hooks/useModal";
 import Modal from "./Modal/Modal";
+import logo from "../assets/images/LogoBig.png";
 
 function ButtonLogin() {
   const userState = useAppSelector((state) => state.user);
@@ -31,6 +32,7 @@ function ButtonLogin() {
       )}
       <Modal open={isOpen} onClose={toggle}>
         <>
+          <StyledLogo src={logo} alt={"alyce"}></StyledLogo>
           <Input
             placeholder={"id"}
             value={id}
@@ -53,18 +55,41 @@ function ButtonLogin() {
 const Input = styled.input`
   width: 300px;
   height: 50px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border: 0;
+  border: 1px solid #cdcacf;
+  box-shadow: 1px 2px 1px #cdcacf;
+  border-radius: 12px;
   padding: 0px 20px 0px 20px;
+
+  @media (max-width: 1024px) {
+    width: 260px;
+  }
 `;
 
 const StyledButtonLogin = styled.button`
   width: 340px;
   height: 50px;
-  border: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #cdcacf;
+  box-shadow: 1px 2px 1px #cdcacf;
+  border-radius: 12px;
   background-color: rgb(255, 83, 85);
   color: white;
+  margin: 0px 0px 16px 0px;
+
+  @media (max-width: 1024px) {
+    margin: 0px;
+    width: 300px;
+  }
+`;
+
+const StyledLogo = styled.img`
+  height: 200px;
+  user-select: none;
+  margin: 0px 0px 20px 0px;
+
+  @media (max-width: 1024px) {
+    height: 160px;
+    margin: 0px;
+  }
 `;
 
 const ButtonContainer = styled.button`

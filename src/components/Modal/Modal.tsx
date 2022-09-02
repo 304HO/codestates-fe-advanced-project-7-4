@@ -16,7 +16,7 @@ function Modal({ open, children, onClose }: ModalPropsType) {
       <Overlay onClick={onClose} />
       <StyledModal>{children}</StyledModal>
     </>,
-    document.getElementById("portal") as HTMLElement
+    document.getElementById("portal") as HTMLElement,
   );
 }
 
@@ -47,10 +47,11 @@ const StyledModal = styled.div`
   align-items: center;
   gap: 20px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1024px) {
     top: calc(50% - 200px);
     left: calc(50% - 200px);
     width: 400px;
     height: 400px;
+    gap: 12px;
   }
 `;

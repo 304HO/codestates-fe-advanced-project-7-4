@@ -64,7 +64,7 @@ const NewsList = ({ newsList }: NewsListPropsType) => {
 export default NewsList;
 
 const StyledBookmark = styled.div`
-  z-index: 10;
+  z-index: 1;
   position: absolute;
   top: 10px;
   right: 10px;
