@@ -8,6 +8,9 @@ import LightTheme from "./assets/theme/light";
 import DarkTheme from "./assets/theme/dark";
 import storage from "./common/utils/storage";
 import Error404 from "./pages/Error404Page";
+import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 
@@ -31,7 +34,7 @@ function App() {
           setTheme: () => {
             storage.setTheme(theme.id);
             setTheme((theme) =>
-              theme.id === "light" ? DarkTheme : LightTheme,
+              theme.id === "light" ? DarkTheme : LightTheme
             );
           },
         }}
@@ -47,6 +50,7 @@ function App() {
           </Container>
         </BrowserRouter>
       </ThemeProvider>
+      <ToastContainer />
     </>
   );
 }
@@ -58,9 +62,8 @@ const Container = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-  flex-flow: row nowrap;
-  // calc(100% - header height)
-  height: calc(100% - 64px);
+  width: 100%;
+  height: 100%;
 `;
 
 export default App;

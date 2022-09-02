@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector, useAppDispatch } from "./../hooks/storeHooks";
-// import { getUserProfile } from "../features/userActions";
 import logo from "./../assets/images/Logo.png";
 import { logout } from "../features/userSlice";
 import SearchBar from "./SearchBar";
@@ -23,17 +22,11 @@ function Header({
   children,
   useLogo = false,
   useLogout = false,
+
   isSidebarOpen,
   setIsSidebarOpen,
 }: HeaderPropsType) {
-  const userState = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const onClickLogoutHandler = () => {
-    dispatch(logout());
-    navigate("/");
-  };
 
   const onClickLogoHandler = () => {
     navigate("/CategoryPage/Business");
@@ -42,8 +35,6 @@ function Header({
   const onClickHamburgerHandler = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  const onClickLoginHandler = () => {};
 
   return (
     <StyledHeader>
@@ -56,7 +47,7 @@ function Header({
           <StyledLogo
             onClick={onClickLogoHandler}
             src={logo}
-            alt={"knewnew"}
+            alt={"alyce"}
           ></StyledLogo>
         )}
       </StyledDiv>
@@ -67,12 +58,12 @@ function Header({
 }
 
 const StyledHeader = styled.header`
-  position: sticky;
+  position: fixed;
   z-index: 10;
 
   width: calc(100% - 40px);
   height: 64px;
-  top: 0;
+  top: 0px;
   display: flex;
   justify-content: space-between;
   padding: 0px 20px;

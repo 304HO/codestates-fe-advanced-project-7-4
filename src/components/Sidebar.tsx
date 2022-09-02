@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../hooks/storeHooks";
+import { clearCategoryNewsList } from "../features/newsSlice";
 
 const MenuList = [
   { label: "즐겨찾기", value: "BookmarkPage", param: "/BookmarkPage" },
@@ -59,11 +61,9 @@ function Sidebar() {
 
 const SidebarContainer = styled.div`
   width: 300px;
-  height: calc(
-    100% - 64px
-  ); //--> sticky가 적용될 요소는 꼭 height값이 있어야 함
-  position: absolute;
-  top: 64px; //--> sticky 상단의 offset 0으로 부터 적용됨
+  height: calc(100% - 64px);
+  position: fixed;
+  top: 64px;
   background-color: white;
 `;
 
