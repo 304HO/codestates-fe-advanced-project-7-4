@@ -112,6 +112,15 @@ const ButtonContainer = styled.button`
   border-radius: 50px;
   border: none;
   user-select: none;
+
+  &:hover {
+    background-color: #00e87b;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15),
+      inset 0px 4px 8px rgba(0, 0, 0, 0.15),
+      inset 0px 8px 16px rgba(0, 0, 0, 0.15);
+    transition: 0.2s;
+    transform: translateY(2px);
+  }
 `;
 
 export default ButtonLogin;

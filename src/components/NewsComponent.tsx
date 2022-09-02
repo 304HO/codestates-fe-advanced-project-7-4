@@ -1,15 +1,16 @@
-import axios from "axios";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { useInView } from "react-intersection-observer";
 import ArrowBottom from "./../assets/images/double-arrow-bottom-icon.svg";
-import { clearCategoryNewsList, clearNewsList } from "../features/newsSlice";
-import { getCategoryNews, getNews } from "../features/newsActions";
+import { clearNewsList } from "../features/newsSlice";
+import { getNews } from "../features/newsActions";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
-import { useLocation, useParams } from "react-router-dom";
-import { CategoryType } from "../apis/api/news";
+import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
 import Loading from "./Loading";
 import NewsList from "./NewsList";
+import SortByButton from "./SortByButton";
 
 function NewsComponent() {
   const dispatch = useAppDispatch();
@@ -72,15 +73,21 @@ function NewsComponent() {
   return (
     <Container>
       <ButtonContainer>
-        <button onClick={() => sortedtypeHandler("relevancy")}>
-          relevancy
-        </button>
-        <button onClick={() => sortedtypeHandler("popularity")}>
-          popularity
-        </button>
-        <button onClick={() => sortedtypeHandler("publishedAt")}>
-          publishedAt
-        </button>
+        <SortByButton
+          name={"relevancy"}
+          sortByName={sortBy}
+          handler={sortedtypeHandler}
+        ></SortByButton>
+        <SortByButton
+          name={"popularity"}
+          sortByName={sortBy}
+          handler={sortedtypeHandler}
+        ></SortByButton>
+        <SortByButton
+          name={"publishedAt"}
+          sortByName={sortBy}
+          handler={sortedtypeHandler}
+        ></SortByButton>
       </ButtonContainer>
       <NewsList newsList={newsState.newsList}></NewsList>
       <StyledDivHidden ref={ref}></StyledDivHidden>
@@ -115,12 +122,6 @@ const ButtonContainer = styled.div`
   justify-content: end;
   margin: 30px;
   gap: 5px;
-  button {
-    width: 80px;
-    height: 50px;
-    background-color: #00e87b;
-    border-radius: 20px;
-  }
 `;
 
 const StyledDivHidden = styled.div`
