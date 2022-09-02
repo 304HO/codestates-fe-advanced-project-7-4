@@ -106,6 +106,7 @@ const ButtonContainer = styled.button`
   font-weight: 600;
   font-size: 16px;
   margin-left: 10px;
+  margin-right: 20px;
 
   background: #00e87b;
   box-shadow: 1px 2px 1px #cdcacf;

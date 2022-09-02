@@ -61,12 +61,13 @@ const StyledHeader = styled.header`
   position: fixed;
   z-index: 10;
 
-  width: calc(100% - 40px);
+  /* width: calc(100% - 40px); */
+  width: 100%;
   height: 64px;
-  top: 0px;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0px 20px;
 
   align-items: center;
   transition-duration: 0.8s;
@@ -87,6 +88,7 @@ const StyledLogo = styled.img`
 const StyledDiv = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 20px;
 `;
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
