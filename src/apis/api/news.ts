@@ -1,6 +1,6 @@
 import axiosApi from "../utils";
 
-const apiKey = "be5289e0e3024c49b501e435cc6f61b0";
+const apiKey = "bcc536799014429587c85b2a342b7a8c";
 
 export type CategoryType = [
   "business",

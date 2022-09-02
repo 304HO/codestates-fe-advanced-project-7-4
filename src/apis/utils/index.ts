@@ -1,5 +1,6 @@
 import axios, { AxiosAdapter } from "axios";
 import { cacheAdapterEnhancer } from "axios-extensions";
+import { toast } from "react-toastify";
 
 let store: any;
 
@@ -28,6 +29,7 @@ axiosApi.interceptors.response.use(
   function (error) {
     // window.location.href = "/404";
     console.log(error);
+    toast(error.message);
     return Promise.reject(error);
   }
 );

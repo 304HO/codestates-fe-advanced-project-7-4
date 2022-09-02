@@ -34,6 +34,7 @@ export default Background;
 const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
   justify-content: center;
+  transition-duration: 0.2s;
   padding-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
   margin-top: 64px;
   & > div {
