@@ -65,6 +65,7 @@ const SidebarContainer = styled.div`
   position: fixed;
   top: 64px;
   background-color: white;
+  z-index: 9;
 `;
 
 const MenuWrap = styled.ul`

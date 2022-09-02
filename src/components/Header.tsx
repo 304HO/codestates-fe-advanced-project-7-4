@@ -95,7 +95,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   height: 25px;
   margin-right: 10px;
   &:hover {
-    cursor: grab;
+    cursor: pointer;
   }
 `;
 
