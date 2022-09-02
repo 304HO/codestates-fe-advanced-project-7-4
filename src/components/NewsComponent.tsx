@@ -39,15 +39,10 @@ function NewsComponent() {
   };
 
   useEffect(() => {
-    console.log("up");
     dispatch(clearNewsList());
     setPage(1);
-  }, [search, sortBy]);
-
-  useEffect(() => {
-    console.log("down");
     onClickAddNewsHandler();
-  }, [search]);
+  }, [search, sortBy]);
 
   const onClickAddNewsHandler = async () => {
     for (let [key, value] of query) {

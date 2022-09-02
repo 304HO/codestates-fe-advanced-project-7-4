@@ -43,7 +43,6 @@ export const getCategoryNews = createAsyncThunk(
         page,
         searchKeyword,
       });
-      console.log(data.articles);
       return data.articles;
     } catch (error: any) {
       const { response, message, serverErrorMessage } = error;

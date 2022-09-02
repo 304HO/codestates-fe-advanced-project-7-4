@@ -41,7 +41,6 @@ const userSlice = createSlice({
       state,
       action: PayloadAction<{ idx: number; news: NewsType }>
     ) => {
-      console.log(action.payload.idx, action.payload.news);
       state.bookmarkList[action.payload.idx] = action.payload.news;
     },
   },

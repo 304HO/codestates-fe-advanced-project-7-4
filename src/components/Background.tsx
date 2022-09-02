@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import NewsComponent from "../components/NewsComponent";
+import SimpleBarReact from "simplebar-react";
+import "simplebar/src/simplebar.css";
 
 type BackgroundPropsType = {
   children: React.ReactElement;
@@ -25,6 +27,10 @@ function Background({ children }: BackgroundPropsType) {
 
 export default Background;
 
+// const StyledSimpleBarReact = styled(SimpleBarReact)`
+//   overflow: hidden scroll;
+// `;
+
 const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
   justify-content: center;
@@ -42,6 +48,6 @@ const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
       width: 100vw;
     }
   }
-
+  overflow: hidden scroll;
   height: calc(100vh - 64px);
 `;

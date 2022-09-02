@@ -28,8 +28,6 @@ function Test() {
     "relevancy" | "popularity" | "publishedAt"
   >("popularity");
 
-  console.log(userState);
-  console.log(newsState);
   const onClickLogoutHandler = () => {
     dispatch(userLogin({ id, password }));
     toggle();
@@ -62,7 +60,6 @@ function Test() {
   };
 
   const onClickEditBookmarkHandler = (idx: number, news: NewsType) => {
-    // console.log(idx, news);
     const newNews = { ...news };
     newNews.author = "test";
     dispatch(editBookmark({ idx, news: newNews }));
