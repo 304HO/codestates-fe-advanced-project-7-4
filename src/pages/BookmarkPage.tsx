@@ -9,6 +9,7 @@ import Sidebar from "../components/Sidebar";
 import { deleteBookmarkIndex } from "../features/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Background from "../components/Background";
 
 function BookmarkPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -28,28 +29,22 @@ function BookmarkPage() {
 
   return (
     <>
-      <Header
-        useLogo={true}
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
-      {isSidebarOpen && <Sidebar />}
-      <StyledDiv isSidebarOpen={isSidebarOpen}>
+      <Background>
         <BookmarkContainer>
-          <div>My Bookmark Page</div>
           {userState.bookmarkList.map((el: any, index: any) => {
             return (
               <>
                 <BookmarkItemContainer key={el.url}>
-                  <div onClick={() => clickHandler(index)}>
+                  <StyledDiv onClick={() => clickHandler(index)}>
                     <BookmarkImage src={el.urlToImage} />
                     <BookmarTitleContentContainer>
                       <BookmarkTitle>{el.title}</BookmarkTitle>
                       <div>{el.content}</div>
                     </BookmarTitleContentContainer>
-                  </div>
+                  </StyledDiv>
                   <StyledFontAwesomeIcon
                     icon={faXmark}
+                    style={{ width: "25px", height: "25px" }}
                     onClick={() => onClickDeleteBookmarkHandler(index)}
                   />
                 </BookmarkItemContainer>
@@ -57,27 +52,28 @@ function BookmarkPage() {
             );
           })}
         </BookmarkContainer>
-      </StyledDiv>
+      </Background>
     </>
   );
 }
 
 export default BookmarkPage;
 
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 930px) {
+    flex-direction: column;
+  }
+`;
+
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   position: absolute;
   top: 10px;
   right: 10px;
   z-index: 1000;
-`;
-
-const BottomButton = styled.div`
-  /* border: 1px solid red; */
-  width: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 `;
 
 const BookmarkTitle = styled.div`
@@ -103,7 +99,6 @@ const BookmarkItemContainer = styled.div`
   position: relative;
   padding: 30px;
   border: 1px solid gray;
-  width: 700px;
   border-radius: 20px;
   margin: 10px 70px;
   display: flex;
@@ -111,29 +106,14 @@ const BookmarkItemContainer = styled.div`
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.02);
   }
 `;
 
 const BookmarkContainer = styled.div`
-  /* border: 1px solid red; */
   max-width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-`;
-
-const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
-  display: flex;
-  justify-content: center;
-  margin-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
-  margin-top: 64px;
-
-  @media (max-width: 930px) {
-    margin-left: 0px;
-  }
-
-  width: 100%;
-  height: calc(100vh - 64px);
 `;

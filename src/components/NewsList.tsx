@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faRegularStar } from "@fortawesome/free-regular-svg-icons";
+import { toast } from "react-toastify";
 
 type NewsListPropsType = {
   newsList: Array<NewsType>;
@@ -16,6 +17,7 @@ const NewsList = ({ newsList }: NewsListPropsType) => {
   const [isFocus, setIsFocus] = useState<number | null>(null);
 
   const onClickAddBookmarkHandler = async (idx: number) => {
+    toast("즐겨찾기에 추가되었습니다.");
     dispatch(addBookmark(newsList[idx]));
   };
   return (

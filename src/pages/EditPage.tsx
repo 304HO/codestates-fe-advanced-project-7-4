@@ -6,6 +6,7 @@ import { NewsType } from "../features/newsSlice";
 import Loading from "../components/Loading";
 import { editBookmark } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function EditPage() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function EditPage() {
   const [newsData, setNewsData] = useState<any | null>(null);
 
   const onClickHandler = () => {
-    alert("수정되었습니다!");
+    toast("수정되었습니다!");
     navigate("/BookmarkPage");
   };
 
