@@ -25,6 +25,8 @@ function CategoryPage() {
 export default CategoryPage;
 
 const StyledSpan = styled.div`
+  // isSidebarOpen === true => margin-left: 0px;
+
   margin-left: 280px;
   margin-top: 64px;
 `;
