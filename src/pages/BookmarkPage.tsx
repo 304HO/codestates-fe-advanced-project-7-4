@@ -1,49 +1,84 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import newsApi from "../apis/api/news";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import { deleteBookmarkIndex } from "../features/userSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function BookmarkPage() {
-  const [bookmarkData, setBookmarkData] = useState<any | null>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
 
-  const Dataparse = (Value: any) => {
-    const parsedata = JSON.parse(Value);
-    setBookmarkData((prev: any) => {
-      return [...prev, parsedata];
-    });
-    console.log("Dataparse JSON.parse", JSON.parse(Value));
-    console.log(bookmarkData);
+  const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state.user);
+
+  const navigate = useNavigate();
+
+  const onClickDeleteBookmarkHandler = async (idx: number) => {
+    dispatch(deleteBookmarkIndex(idx));
   };
 
-  useEffect(() => {
-    const keys = Object.keys(localStorage);
-    console.log("keys", keys);
-    for (let key of keys) {
-      Dataparse(localStorage.getItem(key));
-    }
-  }, []);
+  const clickHandler = (index: any) => {
+    navigate(`/EditPage/${index}`);
+  };
 
   return (
-    <BookmarkContainer>
-      <div>My Bookmark Page</div>
-      {bookmarkData.map((el: any) => {
-        return (
-          <BookmarkItemContainer>
-            <BookmarkImage src={el.urlToImage} />
-            <BookmarTitleContentContainer>
-              <BookmarkTitle>{el.title}</BookmarkTitle>
-              <div>{el.content}</div>
-            </BookmarTitleContentContainer>
-          </BookmarkItemContainer>
-        );
-      })}
-    </BookmarkContainer>
+    <>
+      <Header
+        useLogo={true}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+      {isSidebarOpen && <Sidebar />}
+      <StyledDiv isSidebarOpen={isSidebarOpen}>
+        <BookmarkContainer>
+          <div>My Bookmark Page</div>
+          {userState.bookmarkList.map((el: any, index: any) => {
+            return (
+              <>
+                <BookmarkItemContainer key={el.url}>
+                  <div onClick={() => clickHandler(index)}>
+                    <BookmarkImage src={el.urlToImage} />
+                    <BookmarTitleContentContainer>
+                      <BookmarkTitle>{el.title}</BookmarkTitle>
+                      <div>{el.content}</div>
+                    </BookmarTitleContentContainer>
+                  </div>
+                  <StyledFontAwesomeIcon
+                    icon={faXmark}
+                    onClick={() => onClickDeleteBookmarkHandler(index)}
+                  />
+                </BookmarkItemContainer>
+              </>
+            );
+          })}
+        </BookmarkContainer>
+      </StyledDiv>
+    </>
   );
 }
 
 export default BookmarkPage;
-const BookmarkContent = styled.div``;
+
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+`;
+
+const BottomButton = styled.div`
+  /* border: 1px solid red; */
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`;
 
 const BookmarkTitle = styled.div`
   font-size: 30px;
@@ -65,6 +100,8 @@ const BookmarkImage = styled.img`
 `;
 
 const BookmarkItemContainer = styled.div`
+  position: relative;
+  padding: 30px;
   border: 1px solid gray;
   width: 700px;
   border-radius: 20px;
@@ -85,4 +122,18 @@ const BookmarkContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+`;
+
+const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
+  display: flex;
+  justify-content: center;
+  margin-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
+  margin-top: 64px;
+
+  @media (max-width: 930px) {
+    margin-left: 0px;
+  }
+
+  width: 100%;
+  height: calc(100vh - 64px);
 `;
