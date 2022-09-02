@@ -1,10 +1,15 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import newsApi from "../apis/api/news";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 
 function BookmarkPage() {
+  const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state.user);
+
+  const navigate = useNavigate();
   const [bookmarkData, setBookmarkData] = useState<any | null>([]);
 
   const Dataparse = (Value: any) => {
@@ -14,6 +19,10 @@ function BookmarkPage() {
     });
     console.log("Dataparse JSON.parse", JSON.parse(Value));
     console.log(bookmarkData);
+  };
+
+  const clickHandler = (index: any) => {
+    navigate(`/EditPage/${index}`);
   };
 
   useEffect(() => {
@@ -27,9 +36,12 @@ function BookmarkPage() {
   return (
     <BookmarkContainer>
       <div>My Bookmark Page</div>
-      {bookmarkData.map((el: any) => {
+      {userState.bookmarkList.map((el: any, index: any) => {
         return (
-          <BookmarkItemContainer>
+          <BookmarkItemContainer
+            key={el.url}
+            onClick={() => clickHandler(index)}
+          >
             <BookmarkImage src={el.urlToImage} />
             <BookmarTitleContentContainer>
               <BookmarkTitle>{el.title}</BookmarkTitle>
