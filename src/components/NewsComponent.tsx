@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { useLocation, useParams } from "react-router-dom";
 import { CategoryType } from "../apis/api/news";
 import Loading from "./Loading";
+import NewsList from "./NewsList";
 
 function NewsComponent() {
   const dispatch = useAppDispatch();
@@ -84,26 +85,7 @@ function NewsComponent() {
           publishedAt
         </button>
       </ButtonContainer>
-
-      {newsState.newsList?.map((el: any, i: any) => {
-        return (
-          <a href={el.url} target="_blank" key={i}>
-            <News>
-              <ImgWrapper>
-                <Img src={el.urlToImage}></Img>
-              </ImgWrapper>
-              <ContentWrapper>
-                <Title> {el.title}</Title>
-                <DescWrapper>
-                  <div>{!el.author ? "----" : el.author} </div>
-                  <div> {el.publishedAt.substring(0, 10)}</div>
-                </DescWrapper>
-                <div>{el.description}</div>
-              </ContentWrapper>
-            </News>
-          </a>
-        );
-      })}
+      <NewsList newsList={newsState.newsList}></NewsList>
       <StyledDivHidden ref={ref}></StyledDivHidden>
       <StyledArrowBottom>
         <img src={ArrowBottom} alt="ArrowBottom"></img>
@@ -141,39 +123,6 @@ const ButtonContainer = styled.div`
     background-color: #00e87b;
     border-radius: 20px;
   }
-`;
-const News = styled.div`
-  display: flex;
-  text-decoration: none;
-  align-items: center;
-  margin: 30px;
-  gap: 20px;
-  border: 1px solid;
-  border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px gray;
-`;
-const ImgWrapper = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
-`;
-const Img = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
-`;
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-const Title = styled.div`
-  font-size: 2em;
-`;
-
-const DescWrapper = styled.div`
-  display: flex;
-  gap: 10px;
 `;
 
 const StyledDivHidden = styled.div`

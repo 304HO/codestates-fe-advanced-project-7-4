@@ -8,6 +8,7 @@ import { getCategoryNews } from "../features/newsActions";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { useParams } from "react-router-dom";
 import { CategoryType } from "../apis/api/news";
+import NewsList from "./NewsList";
 
 function CategoryNewsComponent() {
   const dispatch = useAppDispatch();
@@ -58,25 +59,7 @@ function CategoryNewsComponent() {
 
   return (
     <Container>
-      {newsState.categoryNewsList?.map((el: any, i: any) => {
-        return (
-          <a href={el.url} target="_blank" key={i}>
-            <News>
-              <ImgWrapper>
-                <Img src={el.urlToImage}></Img>
-              </ImgWrapper>
-              <ContentWrapper>
-                <Title> {el.title}</Title>
-                <DescWrapper>
-                  <div>{!el.author ? "----" : el.author} </div>
-                  <div> {el.publishedAt.substring(0, 10)}</div>
-                </DescWrapper>
-                <div>{el.description}</div>
-              </ContentWrapper>
-            </News>
-          </a>
-        );
-      })}
+      <NewsList newsList={newsState.categoryNewsList}></NewsList>
       <StyledDivHidden ref={ref}></StyledDivHidden>
       <StyledArrowBottom>
         <img src={ArrowBottom} alt="ArrowBottom"></img>
@@ -95,52 +78,6 @@ const Container = styled.div`
     text-decoration: none;
     color: black;
   }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  margin: 30px;
-  gap: 5px;
-  button {
-    width: 80px;
-    height: 50px;
-    background-color: #00e87b;
-    border-radius: 20px;
-  }
-`;
-const News = styled.div`
-  display: flex;
-  text-decoration: none;
-  align-items: center;
-  margin: 30px;
-  gap: 20px;
-  border: 1px solid;
-  border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px gray;
-`;
-const ImgWrapper = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
-`;
-const Img = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
-`;
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-const Title = styled.div`
-  font-size: 2em;
-`;
-
-const DescWrapper = styled.div`
-  display: flex;
-  gap: 10px;
 `;
 
 const StyledDivHidden = styled.div`
