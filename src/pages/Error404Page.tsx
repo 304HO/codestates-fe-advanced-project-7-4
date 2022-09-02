@@ -32,7 +32,7 @@ const Styled404 = styled.div`
     `inset 6px 6px 10px 0 ${props.theme.primaryColor}, inset -6px -6px 10px 0 ${props.theme.secondaryColor}`};
   background: ${(props) =>
     `linear-gradient(135deg, ${props.theme.primaryColor}, ${props.theme.secondaryColor});`};
-  transition-duration: 0.8s;
+  transition-duration: 0.2s;
   & > h1 {
     font-size: 50px;
     color: red;

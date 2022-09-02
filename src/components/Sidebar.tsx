@@ -25,7 +25,9 @@ const MenuList = [
   },
 ];
 
-function Sidebar() {
+type SideBarPropsType = { isSidebarOpen: boolean };
+
+function Sidebar({ isSidebarOpen }: SideBarPropsType) {
   const { category } = useParams();
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ function Sidebar() {
   };
 
   return (
-    <SidebarContainer>
+    <SidebarContainer isSidebarOpen={isSidebarOpen}>
       <MenuWrap>
         {MenuList.map((menu, idx) => {
           if (menu.value === "contour") {
@@ -55,13 +57,17 @@ function Sidebar() {
   );
 }
 
-const SidebarContainer = styled.div`
+const SidebarContainer = styled.div<SideBarPropsType>`
   width: 300px;
   height: calc(100% - 64px);
   position: fixed;
   top: 64px;
   background-color: white;
   z-index: 9;
+  left: -300px;
+  transition-duration: 0.2s;
+  transform: ${(props) =>
+    props.isSidebarOpen === true ? `translateX(300px)` : `none`};
 `;
 
 const MenuWrap = styled.ul`

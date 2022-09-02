@@ -19,17 +19,14 @@ function Background({ children }: BackgroundPropsType) {
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      {isSidebarOpen && <Sidebar />}
+      {/* {isSidebarOpen && <Sidebar />} */}
+      <Sidebar isSidebarOpen={isSidebarOpen} />
       <StyledDiv isSidebarOpen={isSidebarOpen}>{children}</StyledDiv>
     </>
   );
 }
 
 export default Background;
-
-// const StyledSimpleBarReact = styled(SimpleBarReact)`
-//   overflow: hidden scroll;
-// `;
 
 const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
