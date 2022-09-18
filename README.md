@@ -4,27 +4,41 @@
 
 ## 7조 팀원구성
 
-- 채희찬
+- 채희찬(팀장)
 - 김민성
 - 장석찬
-- 제경모(팀장)
+- 제경모
 
 <br/>
 
-## Figma
+## Wireframe
+[Figma](https://www.figma.com/file/bkfYLpzHvSExYQctAYp9L7/alycehealthcare)
+
+## View
+<details>
+<summary>로그인</summary>
+
+![login](https://user-images.githubusercontent.com/96028495/190911326-916305e0-439f-4e41-bd63-93b86d493d22.gif)
+</details>
 
 <details>
-    <summary>Figma Image</summary>
+<summary>뉴스 검색</summary>
 
-![로그인 페이지](https://user-images.githubusercontent.com/91649767/188101822-9d8bce66-e58a-4ac8-b80f-26d9b890357d.png)
-    
-![Main page](https://user-images.githubusercontent.com/91649767/188101838-ea85e96d-a886-494c-9155-193533a61683.png)
-    
-![news page](https://user-images.githubusercontent.com/91649767/188101970-6e3f0bd5-c65c-4e4f-bb94-15637cb4c414.png)
-    
-![수정 page](https://user-images.githubusercontent.com/91649767/188101988-9e17c78b-cf18-4a00-9fd8-b907bf259a76.png)
-    
+![search](https://user-images.githubusercontent.com/96028495/190911384-40ecb321-dc93-4a11-86cf-0a39478eee60.gif)
 </details>
+
+<details>
+<summary>카테고리별 뉴스</summary>
+
+![category2](https://user-images.githubusercontent.com/96028495/190911388-64a0434b-1e82-44bf-8202-16af75893588.gif)
+</details>
+
+<details>
+<summary>북마크</summary>
+
+![bookmark](https://user-images.githubusercontent.com/96028495/190911394-596e80e1-dbfb-48d2-9859-9ed32630cc18.gif)
+</details>
+
 <br/>
 
 ## page
@@ -63,7 +77,6 @@ npm start
 
 - [x] React Hook, styled-components, Redux 사용
 
-<br/>
 
 ## 아쉬운 점
 
