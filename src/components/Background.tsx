@@ -32,8 +32,11 @@ const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
   justify-content: center;
   transition-duration: 0.2s;
-  padding-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
   margin-top: 64px;
+
+  padding-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
+  width: ${(props) =>
+    props.isSidebarOpen === true ? `calc(100% - 280px)` : `100%`};
   & > div {
     width: ${(props) =>
       props.isSidebarOpen === true ? `calc(100% - 280px)` : `100%`};

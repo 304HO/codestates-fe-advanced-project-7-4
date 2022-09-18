@@ -23,12 +23,12 @@ function BookmarkPage() {
 
   const navigate = useNavigate();
 
-  const onClickDeleteBookmarkHandler = async (idx: number) => {
-    dispatch(deleteBookmarkIndex(idx));
+  const onClickDeleteBookmarkHandler = async (url: string) => {
+    dispatch(deleteBookmarkIndex(url));
   };
 
-  const clickHandler = (index: any) => {
-    navigate(`/EditPage/${index}`);
+  const clickHandler = (url: string) => {
+    navigate(`/EditPage/${url}`);
   };
 
   useEffect(() => {
@@ -42,16 +42,17 @@ function BookmarkPage() {
     <>
       <Background>
         <BookmarkContainer>
-          {userState.bookmarkList.length === 0 && <img src={NoBookMark}></img>}
-          {userState.bookmarkList.map((el: NewsType, index: any) => {
-            console.log(el);
-            return (
-              <>
-                <BookmarkItemContainer key={index}>
+          {Object.keys(userState.bookmarkList).length === 0 && (
+            <img src={NoBookMark}></img>
+          )}
+          {Object.entries(userState.bookmarkList).map(
+            ([url, el]: [url: string, el: NewsType]) => {
+              return (
+                <BookmarkItemContainer key={url}>
                   <StyledDiv
                     onClick={(e) => {
                       e.preventDefault();
-                      clickHandler(index);
+                      clickHandler(url);
                     }}
                   >
                     <StyledFontAwesomeIcon
@@ -59,15 +60,15 @@ function BookmarkPage() {
                       style={{ width: "20px", height: "20px" }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        onClickDeleteBookmarkHandler(index);
+                        onClickDeleteBookmarkHandler(url);
                       }}
                     />
                     <NewsContent newsContent={el} />
                   </StyledDiv>
                 </BookmarkItemContainer>
-              </>
-            );
-          })}
+              );
+            },
+          )}
         </BookmarkContainer>
       </Background>
     </>
@@ -84,6 +85,7 @@ const StyledDiv = styled.div`
   @media (max-width: 930px) {
     flex-direction: column;
   }
+  height: 100%;
 `;
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
@@ -131,6 +133,8 @@ const BookmarkItemContainer = styled.div`
   border-radius: 12px;
   border-color: rgba(100, 100, 100, 0.4);
   background-color: white;
+  white-space: pre-line;
+  word-break: break-word;
 `;
 
 const BookmarkContainer = styled.div`

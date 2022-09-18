@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { NewsType } from "../features/newsSlice";
-import { addBookmark } from "../features/userSlice";
+import { addBookmark, deleteBookmarkIndex } from "../features/userSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faRegularStar } from "@fortawesome/free-regular-svg-icons";
 import { toast } from "react-toastify";
 import NewsContent from "./NewsContent";
+import { changeUrl } from "./../common/utils/parseUrl";
 
 type NewsListPropsType = {
   newsList: Array<NewsType>;
@@ -15,24 +16,39 @@ type NewsListPropsType = {
 
 const NewsList = ({ newsList }: NewsListPropsType) => {
   const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state.user);
+  const bookMarkList = userState.bookmarkList;
   const [isFocus, setIsFocus] = useState<number | null>(null);
 
-  const onClickAddBookmarkHandler = async (idx: number) => {
-    toast.success("즐겨찾기에 추가되었습니다.");
-    dispatch(addBookmark(newsList[idx]));
+  const onClickAddBookmarkHandler = async (
+    idx: number,
+    isInBookMarkList: boolean,
+  ) => {
+    if (newsList[idx].url !== undefined || newsList[idx].url !== null) {
+      if (isInBookMarkList === true) {
+        toast.success("즐겨찾기에 삭제되었습니다.");
+        dispatch(deleteBookmarkIndex(newsList[idx].url as string));
+      } else {
+        toast.success("즐겨찾기에 추가되었습니다.");
+        dispatch(addBookmark(newsList[idx]));
+      }
+    } else {
+      toast.error("url이 없습니다.");
+    }
   };
 
   return (
     <StyledContainer>
       {newsList?.map((newsContent: NewsType, i: number) => {
+        const isInBookMarkList = bookMarkList.hasOwnProperty(
+          changeUrl(newsContent.url as string),
+        );
         return (
           <News key={i}>
             <StyledBookmark
-              onMouseEnter={() => setIsFocus(i)}
-              onMouseLeave={() => setIsFocus(null)}
-              onClick={() => onClickAddBookmarkHandler(i)}
+              onClick={() => onClickAddBookmarkHandler(i, isInBookMarkList)}
             >
-              {isFocus === i ? (
+              {isInBookMarkList ? (
                 <FontAwesomeIcon icon={faSolidStar}></FontAwesomeIcon>
               ) : (
                 <FontAwesomeIcon icon={faRegularStar}></FontAwesomeIcon>
@@ -66,9 +82,6 @@ const StyledContainer = styled.div`
 
 const News = styled.div`
   position: relative;
-  /* display: flex;
-  text-decoration: none;
-  align-items: center; */
   margin: 30px;
   gap: 20px;
   border: 1px solid;

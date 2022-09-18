@@ -37,14 +37,17 @@ export default NewsContent;
 const StyledA = styled.a`
   display: flex;
   flex-direction: column;
-  text-decoration: none;
   align-items: center;
-  margin: 30px;
+  justify-content: center;
+  text-decoration: none;
+  /* margin: 30px; */
   gap: 20px;
+  width: 100%;
+  height: 100%;
 `;
 
 const ImgWrapper = styled.div`
-  width: 97%;
+  width: 90%;
   height: 200px;
   border-radius: 20px;
   /* object-fit: cover; */
@@ -59,6 +62,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 90%;
 `;
 
 const Title = styled.div`
@@ -75,8 +79,9 @@ const AuthorTimeWrapper = styled.div`
 const DescWrapper = styled.div`
   /* display: flex; */
   /* gap: 10px; */
+  width: 100%;
   height: 7.1em;
-  overflow: hidden;
   display: block;
-  white-space: pre-line;
+  overflow: hidden;
+  /* white-space: pre-line; */
 `;

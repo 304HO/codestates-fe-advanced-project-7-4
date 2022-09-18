@@ -13,7 +13,7 @@ function EditPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userState = useAppSelector((state) => state.user);
-  let { idx } = useParams();
+  let { url } = useParams();
 
   const [newsData, setNewsData] = useState<any | null>(null);
 
@@ -27,8 +27,8 @@ function EditPage() {
       navigate("/");
       toast.error("로그인을 해주세요.");
     }
-    if (idx !== undefined) {
-      setNewsData({ ...userState.bookmarkList[parseInt(idx) as number] });
+    if (url !== undefined) {
+      setNewsData({ ...userState.bookmarkList[url] });
     }
   }, []);
 
@@ -37,8 +37,8 @@ function EditPage() {
   };
 
   const onClickEditBookmarkHandler = (news: NewsType) => {
-    if (idx !== undefined) {
-      dispatch(editBookmark({ idx: parseInt(idx), news }));
+    if (url !== undefined) {
+      dispatch(editBookmark({ url, news }));
     }
   };
 
