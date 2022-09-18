@@ -20,7 +20,7 @@ axiosApi.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosApi.interceptors.response.use(
@@ -30,9 +30,9 @@ axiosApi.interceptors.response.use(
   function (error) {
     // window.location.href = "/404";
     console.log(error);
-    toast(error.message);
+    toast.error(error.message);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosApi;

@@ -1,7 +1,6 @@
 import axiosApi from "../utils";
 
-const apiKey = "bcc536799014429587c85b2a342b7a8c";
-
+const apiKey = "5bdb1943884b4e33bcbd46bbfc113146";
 export type CategoryType = [
   "business",
   "entertainment",
@@ -9,7 +8,7 @@ export type CategoryType = [
   "health",
   "science",
   "sports",
-  "technology"
+  "technology",
 ];
 
 // export type sortByType  = "relevancy" | "popularity" | "publishedAt" | null;

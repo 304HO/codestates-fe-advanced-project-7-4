@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NewsType } from "./newsSlice";
 import { userLogin } from "./userActions";
+import { changeUrl } from "../common/utils/parseUrl";
 
 interface UserState {
   loading: boolean;
   isLogin: boolean;
-  bookmarkList: Array<NewsType>;
+  // bookmarkList: Array<NewsType>;
+  bookmarkList: { [x: string]: NewsType };
   error: null | string;
 }
 
 const initialState: UserState = {
   loading: false,
   isLogin: false,
-  bookmarkList: [],
+  bookmarkList: {},
   error: null,
 };
 
@@ -27,21 +29,27 @@ const userSlice = createSlice({
     },
 
     initialBookmark: (state) => {
-      state.bookmarkList = [];
+      state.bookmarkList = {};
     },
-    deleteBookmarkIndex: (state, action: PayloadAction<number>) => {
-      state.bookmarkList.splice(action.payload, 1);
+    // deleteBookmarkIndex: (state, action: PayloadAction<number>) => {
+    deleteBookmarkIndex: (state, action: PayloadAction<string>) => {
+      // state.bookmarkList.splice(action.payload, 1);
+      delete state.bookmarkList[changeUrl(action.payload)];
     },
     addBookmark: (state, action: PayloadAction<NewsType>) => {
-      if (action.payload !== null && action.payload !== undefined) {
-        state.bookmarkList.push(action.payload);
+      if (
+        action.payload !== null &&
+        action.payload !== undefined &&
+        action.payload.url !== null
+      ) {
+        state.bookmarkList[changeUrl(action.payload.url)] = action.payload;
       }
     },
     editBookmark: (
       state,
-      action: PayloadAction<{ idx: number; news: NewsType }>
+      action: PayloadAction<{ url: string; news: NewsType }>,
     ) => {
-      state.bookmarkList[action.payload.idx] = action.payload.news;
+      state.bookmarkList[changeUrl(action.payload.url)] = action.payload.news;
     },
   },
   extraReducers: (builder) => {

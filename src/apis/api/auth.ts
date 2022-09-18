@@ -14,10 +14,10 @@ type LoginType = {
 const authApi = {
   login: async ({ id, password }: LoginType) => {
     if (id === "alyce" && password === "alyce123") {
-      toast("Login success");
+      toast.success("Login success");
       return true;
     }
-    toast("ID or Password do not match.");
+    toast.error("ID or Password do not match.");
     throw CustomException("ID or Password do not match.");
   },
 };

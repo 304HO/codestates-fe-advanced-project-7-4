@@ -11,6 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Background from "../components/Background";
 import { toast } from "react-toastify";
+import NoBookMark from "../assets/images/no_bookmark.svg";
+import NewsContent from "../components/NewsContent";
+import { NewsType } from "../features/newsSlice";
 
 function BookmarkPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -20,18 +23,18 @@ function BookmarkPage() {
 
   const navigate = useNavigate();
 
-  const onClickDeleteBookmarkHandler = async (idx: number) => {
-    dispatch(deleteBookmarkIndex(idx));
+  const onClickDeleteBookmarkHandler = async (url: string) => {
+    dispatch(deleteBookmarkIndex(url));
   };
 
-  const clickHandler = (index: any) => {
-    navigate(`/EditPage/${index}`);
+  const clickHandler = (url: string) => {
+    navigate(`/EditPage/${url}`);
   };
 
   useEffect(() => {
     if (userState.isLogin === false) {
       navigate("/");
-      toast("로그인을 해주세요.");
+      toast.error("로그인을 해주세요.");
     }
   }, []);
 
@@ -39,26 +42,33 @@ function BookmarkPage() {
     <>
       <Background>
         <BookmarkContainer>
-          {userState.bookmarkList.map((el: any, index: any) => {
-            return (
-              <>
-                <BookmarkItemContainer key={el.url}>
-                  <StyledDiv onClick={() => clickHandler(index)}>
-                    <BookmarkImage src={el.urlToImage} />
-                    <BookmarTitleContentContainer>
-                      <BookmarkTitle>{el.title}</BookmarkTitle>
-                      <div>{el.content}</div>
-                    </BookmarTitleContentContainer>
+          {Object.keys(userState.bookmarkList).length === 0 && (
+            <img src={NoBookMark}></img>
+          )}
+          {Object.entries(userState.bookmarkList).map(
+            ([url, el]: [url: string, el: NewsType]) => {
+              return (
+                <BookmarkItemContainer key={url}>
+                  <StyledDiv
+                    onClick={(e) => {
+                      e.preventDefault();
+                      clickHandler(url);
+                    }}
+                  >
+                    <StyledFontAwesomeIcon
+                      icon={faXmark}
+                      style={{ width: "20px", height: "20px" }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClickDeleteBookmarkHandler(url);
+                      }}
+                    />
+                    <NewsContent newsContent={el} />
                   </StyledDiv>
-                  <StyledFontAwesomeIcon
-                    icon={faXmark}
-                    style={{ width: "25px", height: "25px" }}
-                    onClick={() => onClickDeleteBookmarkHandler(index)}
-                  />
                 </BookmarkItemContainer>
-              </>
-            );
-          })}
+              );
+            },
+          )}
         </BookmarkContainer>
       </Background>
     </>
@@ -75,6 +85,7 @@ const StyledDiv = styled.div`
   @media (max-width: 930px) {
     flex-direction: column;
   }
+  height: 100%;
 `;
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
@@ -97,31 +108,41 @@ const BookmarTitleContentContainer = styled.div`
   gap: 5px;
 `;
 
-const BookmarkImage = styled.img`
-  width: 150px;
-  height: 150px;
+const BookmarkImgWrapper = styled.div`
+  width: 97%;
+  height: 200px;
   border-radius: 20px;
+  /* object-fit: cover; */
+`;
+
+const BookmarkImage = styled.img`
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  object-fit: cover;
 `;
 
 const BookmarkItemContainer = styled.div`
   position: relative;
-  padding: 30px;
-  border: 1px solid gray;
-  border-radius: 20px;
-  margin: 10px 70px;
-  display: flex;
-  box-shadow: 4px 4px 4px 5px gray;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.02);
-  }
+  /* display: flex;
+  text-decoration: none;
+  align-items: center; */
+  margin: 30px;
+  gap: 20px;
+  border: 1px solid;
+  border-radius: 12px;
+  border-color: rgba(100, 100, 100, 0.4);
+  background-color: white;
+  white-space: pre-line;
+  word-break: break-word;
 `;
 
 const BookmarkContainer = styled.div`
-  max-width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-auto-rows: 550px;
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;

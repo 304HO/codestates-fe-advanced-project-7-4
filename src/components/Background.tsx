@@ -32,20 +32,21 @@ const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
   justify-content: center;
   transition-duration: 0.2s;
-  padding-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
   margin-top: 64px;
+
+  padding-left: ${(props) => (props.isSidebarOpen === true ? `280px` : `0px`)};
+  width: ${(props) =>
+    props.isSidebarOpen === true ? `calc(100% - 280px)` : `100%`};
   & > div {
     width: ${(props) =>
-      props.isSidebarOpen === true ? `calc(100vw - 280px)` : `100vw`};
+      props.isSidebarOpen === true ? `calc(100% - 280px)` : `100%`};
   }
 
   @media (max-width: 930px) {
     padding-left: 0px;
-    width: 100vw;
+    width: 100%;
     & > div {
-      width: 100vw;
+      width: 100%;
     }
   }
-  overflow: hidden scroll;
-  height: calc(100vh - 64px);
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../hooks/storeHooks";
 import { clearCategoryNewsList } from "../features/newsSlice";
@@ -30,6 +30,9 @@ type SideBarPropsType = { isSidebarOpen: boolean };
 function Sidebar({ isSidebarOpen }: SideBarPropsType) {
   const { category } = useParams();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const firstPath = pathname.split("/")[1];
 
   const onClickSidebarHandler = (param: string) => {
     navigate(param);
@@ -45,7 +48,11 @@ function Sidebar({ isSidebarOpen }: SideBarPropsType) {
           return (
             <MenuText
               key={idx}
-              className={category === menu.value ? "selected" : "unSelected"}
+              className={
+                category === menu.value || firstPath === menu.value
+                  ? "selected"
+                  : "unSelected"
+              }
               onClick={() => onClickSidebarHandler(menu.param)}
             >
               {menu.label}
