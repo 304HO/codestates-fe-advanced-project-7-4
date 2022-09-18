@@ -39,7 +39,7 @@ const userSlice = createSlice({
     },
     editBookmark: (
       state,
-      action: PayloadAction<{ idx: number; news: NewsType }>
+      action: PayloadAction<{ idx: number; news: NewsType }>,
     ) => {
       state.bookmarkList[action.payload.idx] = action.payload.news;
     },

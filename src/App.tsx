@@ -34,36 +34,21 @@ function App() {
           setTheme: () => {
             storage.setTheme(theme.id);
             setTheme((theme) =>
-              theme.id === "light" ? DarkTheme : LightTheme
+              theme.id === "light" ? DarkTheme : LightTheme,
             );
           },
         }}
       >
         <BrowserRouter>
-          <Container>
-            <ContentContainer>
-              <Routes>
-                {getRoutes(routes)}
-                <Route path="*" element={<Error404 />} />
-              </Routes>
-            </ContentContainer>
-          </Container>
+          <Routes>
+            {getRoutes(routes)}
+            <Route path="*" element={<Error404 />} />
+          </Routes>
         </BrowserRouter>
       </ThemeProvider>
       <ToastContainer />
     </>
   );
 }
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
 
 export default App;

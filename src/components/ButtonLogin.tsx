@@ -115,12 +115,12 @@ const ButtonContainer = styled.button`
   user-select: none;
 
   &:hover {
-    background-color: #00e87b;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15),
+    background-color: #2df697;
+    /* box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15),
       inset 0px 4px 8px rgba(0, 0, 0, 0.15),
-      inset 0px 8px 16px rgba(0, 0, 0, 0.15);
-    transition: 0.2s;
-    transform: translateY(2px);
+      inset 0px 8px 16px rgba(0, 0, 0, 0.15); */
+    transition: 0.1s;
+    /* transform: translateY(2px); */
   }
 `;
 

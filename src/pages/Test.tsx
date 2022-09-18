@@ -46,7 +46,7 @@ function Test() {
         category: "business",
         pageSize,
         page,
-      })
+      }),
     );
     setPage((prev) => prev + 1);
   };
@@ -101,7 +101,7 @@ function Test() {
       </Modal>
       {userState.bookmarkList.map((v, idx) => {
         return (
-          <div>
+          <div key={idx}>
             {v?.author}
             <ButtonLogin onClick={() => onClickDeleteBookmarkHandler(idx)}>
               북마크 삭제
@@ -114,7 +114,7 @@ function Test() {
       })}
       {newsState.categoryNewsList.map((v, idx) => {
         return (
-          <div>
+          <div key={idx}>
             <span>인덱스{idx}</span>
             <span>{v?.author}</span>
           </div>
@@ -123,7 +123,7 @@ function Test() {
       <div>
         {newsState.newsList.map((v, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <span>인덱스{idx}</span>
               <span>{v?.author}</span>
               <ButtonLogin onClick={() => onClickAddBookmarkHandler(idx)}>

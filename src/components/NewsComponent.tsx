@@ -54,7 +54,7 @@ function NewsComponent() {
             sortBy,
             pageSize,
             page,
-          })
+          }),
         );
         setPage((prev) => prev + 1);
         return;

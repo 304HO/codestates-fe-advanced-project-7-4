@@ -17,8 +17,8 @@ const StyledDivCenter = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 80%;
-  margin: 3em 0 3em 0;
+  height: 100%;
+  margin: 1rem 0 1rem 0;
 `;
 
 const StyledLoader = styled.div`
@@ -26,23 +26,23 @@ const StyledLoader = styled.div`
   width: inherit;
   height: inherit;
   font-size: 0.2rem;
-  border-top: 3em solid rgba(255, 255, 255, 0.2);
-  border-right: 3em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 3em solid rgba(255, 255, 255, 0.2);
-  border-left: 3em solid black;
+  border-top: 1rem solid rgba(255, 255, 255, 0.2);
+  border-right: 1rem solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1rem solid rgba(255, 255, 255, 0.2);
+  border-left: 1rem solid black;
   transform: translateZ(0);
   animation: ${lodingAnimation} 1s infinite linear;
   &,
   & :after {
     border-radius: 50%;
-    width: 100em;
-    height: 100em;
+    width: 10rem;
+    height: 10rem;
   }
 `;
 
 const StyledLoadingFont = styled.span`
-  margin-top: 3em;
-  font-size: 3em;
+  margin-top: 3rem;
+  font-size: 3rem;
 `;
 
 function Loading() {

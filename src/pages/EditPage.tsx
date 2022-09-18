@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 import { editBookmark } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Background from "../components/Background";
 
 function EditPage() {
   const navigate = useNavigate();
@@ -17,14 +18,14 @@ function EditPage() {
   const [newsData, setNewsData] = useState<any | null>(null);
 
   const onClickHandler = () => {
-    toast("수정되었습니다!");
+    toast.success("수정되었습니다!");
     navigate("/BookmarkPage");
   };
 
   useEffect(() => {
     if (userState.isLogin === false) {
       navigate("/");
-      toast("로그인을 해주세요.");
+      toast.error("로그인을 해주세요.");
     }
     if (idx !== undefined) {
       setNewsData({ ...userState.bookmarkList[parseInt(idx) as number] });
@@ -46,24 +47,26 @@ function EditPage() {
   }
 
   return (
-    <RootContainer>
-      <Title>{newsData.title}</Title>
-      {newsData?.urlToImage && <ContentImg src={newsData.urlToImage} />}
-      <Content>{newsData.content}</Content>
-      <Textarea
-        placeholder="여기서수정"
-        value={newsData?.content ? newsData?.content : ""}
-        onChange={(e) => handleSetValue(e.target.value)}
-      ></Textarea>
-      <StyledButton
-        onClick={() => {
-          onClickEditBookmarkHandler(newsData);
-          onClickHandler();
-        }}
-      >
-        수정버튼
-      </StyledButton>
-    </RootContainer>
+    <Background>
+      <RootContainer>
+        <Title>{newsData.title}</Title>
+        {newsData?.urlToImage && <ContentImg src={newsData.urlToImage} />}
+        <Content>{newsData.content}</Content>
+        <Textarea
+          placeholder="여기서수정"
+          value={newsData?.content ? newsData?.content : ""}
+          onChange={(e) => handleSetValue(e.target.value)}
+        ></Textarea>
+        <StyledButton
+          onClick={() => {
+            onClickEditBookmarkHandler(newsData);
+            onClickHandler();
+          }}
+        >
+          수정버튼
+        </StyledButton>
+      </RootContainer>
+    </Background>
   );
 }
 

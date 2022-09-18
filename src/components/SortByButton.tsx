@@ -26,7 +26,7 @@ export default SortByButton;
 const StyledButton = styled.button`
   gap: 5px;
   width: 100px;
-  height: 50px;
+  height: 40px;
   background-color: #00e87b;
   border-radius: 15px;
   border: 0;
@@ -35,15 +35,15 @@ const StyledButton = styled.button`
   place-content: center;
   place-items: center;
 
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 1px #cdcacf;
 
   &:hover {
-    background-color: #00e87b;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15),
+    background-color: #2df697;
+    /* box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15),
       inset 0px 4px 8px rgba(0, 0, 0, 0.15),
-      inset 0px 8px 16px rgba(0, 0, 0, 0.15);
+      inset 0px 8px 16px rgba(0, 0, 0, 0.15); */
     transition: 0.2s;
-    transform: translateY(2px);
+    /* transform: translateY(2px); */
   }
 
   & > svg {

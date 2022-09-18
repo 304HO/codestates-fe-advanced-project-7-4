@@ -36,16 +36,14 @@ const StyledDiv = styled.div<{ isSidebarOpen: boolean }>`
   margin-top: 64px;
   & > div {
     width: ${(props) =>
-      props.isSidebarOpen === true ? `calc(100vw - 280px)` : `100vw`};
+      props.isSidebarOpen === true ? `calc(100% - 280px)` : `100%`};
   }
 
   @media (max-width: 930px) {
     padding-left: 0px;
-    width: 100vw;
+    width: 100%;
     & > div {
-      width: 100vw;
+      width: 100%;
     }
   }
-  overflow: hidden scroll;
-  height: calc(100vh - 64px);
 `;
